@@ -9,6 +9,7 @@
             <th>Floor</th>
             <th>Room</th>
             <th>Address</th>
+            <th>Detalles</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
             <td>{{ item.floor || '-' }}</td>
             <td>{{ item.room || '-' }}</td>
             <td>{{ item.address || '-' }}</td>
+            <td><a [routerLink]="['/location', item.id]">Ver más</a></td>
         </tr>
         }
     </tbody>

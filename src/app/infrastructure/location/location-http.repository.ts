@@ -17,4 +17,18 @@ export class LocationHttpRepository implements LocationRepository {
     const dto = await firstValueFrom(this.http.get<LocationDTO>(`location/${id}`))
     return dto ? Location.create(dto) : null;
   }
+  async create ( input: LocationDTO ): Promise<Location> {
+ const dto = await this.http.post<LocationDTO>( 'location', input
+).toPromise();
+ return Location.create( dto! );
+ }
+ async update ( id: string, patch: Partial<LocationDTO> ): Promise<Location> {
+ const dto = await this.http.patch<LocationDTO>( `location/${ id }`, patch
+).toPromise();
+ return Location.create( dto! );
+ }
+ async remove ( id: string ): Promise<void> {
+ await this.http.delete<void>( `location/${ id }` ).toPromise();
+ }
 }
+

@@ -3,10 +3,11 @@ import { Component, Input } from '@angular/core';
 import { Location } from '../../../../../domain/models/location.model';
 import { StatusLabelPipe } from '../../../../shared/pipes/status-label-pipe';
 import { TypeLabelPipe } from '../../../../shared/pipes/type-label-pipe';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-location-table',
-  imports: [CommonModule, TypeLabelPipe, StatusLabelPipe],
+  imports: [CommonModule, TypeLabelPipe, StatusLabelPipe, RouterLink],
   templateUrl: './location-table.html',
   styleUrl: './location-table.css'
 })

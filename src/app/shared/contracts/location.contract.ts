@@ -6,9 +6,9 @@ export interface LocationDTO {
     name: string;
     type: LocationType;
     status: LocationStatus;
-    building: string;
-    floor: string;
-    room: string;
-    address: string;
-    metadata: Record<string, unknown> | Map<string, unknown>;
+    building?: string;
+    floor?: string;
+    room?: string;
+    address?: string;
+    metadata?: Record<string, unknown> | Map<string, unknown>;
 }
