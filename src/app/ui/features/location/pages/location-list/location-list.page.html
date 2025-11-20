@@ -1,0 +1,11 @@
+<section class="container">
+    <h2>Location Inventory</h2>
+    <button (click)="reload()">Reload</button>
+    @if (loading()) {
+    <p>Loading....</p>
+    }
+    @if (error()) {
+    <p>{{ error() }}</p>
+    }
+    <app-location-table *ngIf="!loading() && !error()" [data]="items()" />
+</section>

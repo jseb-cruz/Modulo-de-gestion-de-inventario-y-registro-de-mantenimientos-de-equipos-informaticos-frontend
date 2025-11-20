@@ -38,6 +38,12 @@ export const routes: Routes = [
         ],
     },
     {
+        path: 'location',
+        loadComponent: () => import(
+            './ui/features/location/pages/location-list/location-list.page').then(m =>
+                m.LocationListPage)
+    },
+    {
         path: 'maintenance',
         loadComponent: () => import(
             './ui/features/maintenance/pages/maintenance-list/maintenance-list.page').then(m =>
