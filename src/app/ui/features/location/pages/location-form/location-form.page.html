@@ -1,0 +1,66 @@
+<section class="container">
+  <h2>Registrar/Editar Ubicacio;n</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+      <label>
+        Codigo*
+        <input formControlName="code" />
+        @if(form.controls.code.invalid && form.controls.code.touched){
+        <span class="error">Requerido</span>
+        }
+      </label>
+      <label>
+        Nombre*
+        <input formControlName="name" />
+        @if(form.controls.name.invalid && form.controls.name.touched){
+        <span class="error">Requerido</span>
+        }
+      </label>
+      <label>
+        Tipo*
+        <select formControlName="type">
+          <option value="Office">Oficina</option>
+          <option value="Warehouse">Almacen</option>
+          <option value="DataCenter">Centro de datos</option>
+          <option value="Lab">Laboratorio</option>
+          <option value="Remote">Remoto</option>
+          <option value="Other">Otro</option>
+        </select>
+      </label>
+      <label>
+        Estado*
+        <select formControlName="status">
+          <option value="Active">Activo</option>
+          <option value="Inactive">Inactivo</option>
+          <option value="UnderMaintenance">En mantenimiento</option>
+          <option value="Deprecated">Deprecado</option>
+        </select>
+      </label>
+      <label>
+        Edificio
+        <input formControlName="building" />
+      </label>
+      <label>
+        Piso
+        <input formControlName="floor" />
+      </label>
+      <label>
+        Sala/Habitacion
+        <input formControlName="room" />
+      </label>
+      <label>
+        Direccion
+        <input formControlName="address" />
+      </label>
+    </div>
+    <div class="actions">
+      <button type="submit" [disabled]="form.invalid || submitting()">Guardar</button>
+    </div>
+    @if(error()){
+    <p>{{ error() }}</p>
+    }
+    @if(success()){
+    <p>Guardado correctamente (simulado)</p>
+    }
+  </form>
+</section>

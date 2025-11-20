@@ -44,6 +44,18 @@ export const routes: Routes = [
                 m.LocationListPage)
     },
     {
+        path: 'location/new',
+        loadComponent: () => import(
+            './ui/features/location/pages/location-form/location-form.page').then(m =>
+                m.LocationFormPage)
+    },
+    {
+        path: 'location/:id',
+        loadComponent: () => import(
+            './ui/features/location/pages/location-detail/location-detail.page').then(m =>
+                m.LocationDetailPage)
+    },
+    {
         path: 'maintenance',
         loadComponent: () => import(
             './ui/features/maintenance/pages/maintenance-list/maintenance-list.page').then(m =>

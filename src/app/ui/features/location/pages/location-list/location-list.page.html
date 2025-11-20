@@ -1,11 +1,47 @@
 <section class="container">
-    <h2>Location Inventory</h2>
-    <button (click)="reload()">Reload</button>
+    <header class="toolbar">
+        <h2>Location Inventory</h2>
+        <a routerLink="/location/new">+ Nuevo</a>
+    </header>
+    <div class="filters">
+        <input type="text" placeholder="Buscar por codigo/nombre/direccion" (input)="onQuery($event)">
+        <select name="selectType" id="selectType" (change)="onType($event)">
+            <option value="All">Tipo (Todos)</option>
+            @for(type of types; track type) {
+            <option [value]="type">{{ type | typeLabel:'location' }}</option>
+            }
+        </select>
+        <select name="selectStatus" id="selectStatus" (change)="onStatus($event)">
+            <option value="All">Estado (Todos)</option>
+            @for(status of statuses; track status) {
+            <option [value]="status">{{ status | statusLabel:'location' }}</option>
+            }
+        </select>
+        <label>
+            Tamano pagina
+            <select name="selectPageSize" id="selectPageSize" (change)="onPageSize($event)">
+                <option [value]="1">1</option>
+                <option [value]="5">5</option>
+                <option [value]="10" selected>10</option>
+                <option [value]="20">20</option>
+            </select>
+        </label>
+    </div>
+    <button (click)="reload()">Recargar</button>
     @if (loading()) {
-    <p>Loading....</p>
+    <p>Cargando...</p>
     }
     @if (error()) {
     <p>{{ error() }}</p>
     }
-    <app-location-table *ngIf="!loading() && !error()" [data]="items()" />
+    @if(!loading() && !error()) {
+    <app-location-table [data]="paged()" />
+    }
+    @if(total() > pageSize()) {
+    <div class="pagination">
+        <button (click)="previous()" [disabled]="page() === 1">Anterior</button>
+        <span>Pagina {{ page() }} de {{ totalPages() }}</span>
+        <button (click)="next()" [disabled]="page() >= totalPages()">Siguiente</button>
+    </div>
+    }
 </section>

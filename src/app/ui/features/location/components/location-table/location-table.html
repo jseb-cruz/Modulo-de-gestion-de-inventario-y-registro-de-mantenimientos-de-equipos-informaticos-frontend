@@ -16,8 +16,8 @@
         <tr>
             <td>{{ item.code }}</td>
             <td>{{ item.name }}</td>
-            <td>{{ item.type }}</td>
-            <td>{{ item.status }}</td>
+            <td>{{ item.type | typeLabel:'location' }}</td>
+            <td>{{ item.status | statusLabel:'location' }}</td>
             <td>{{ item.building || '-' }}</td>
             <td>{{ item.floor || '-' }}</td>
             <td>{{ item.room || '-' }}</td>
