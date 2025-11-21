@@ -10,10 +10,12 @@ import { firstValueFrom } from 'rxjs';
 })
 export class EquipmentHttpRepository implements EquipmentRepository {
   private readonly http = inject(HttpClient);
+
   async findAll(): Promise<Equipment[]> {
-    const data = await firstValueFrom(this.http.get<EquipmentDTO[]>('equipment'
-    ));
-    return (data ?? []).map(Equipment.create);
+    const response = await firstValueFrom(this.http.get<{"ok":boolean,data:EquipmentDTO[]}>('equipment'));
+    const data = response.data
+    const list = Array.isArray(data) ? data : [];
+    return list.map(Equipment.create);
   }
   async findById(id: string): Promise<Equipment | null> {
     const dto = await firstValueFrom(this.http.get<EquipmentDTO>(`equipment/${id}`));
