@@ -1,0 +1,30 @@
+<table>
+    <thead>
+        <tr>
+            <th>Code</th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Status</th>
+            <th>Building</th>
+            <th>Floor</th>
+            <th>Room</th>
+            <th>Address</th>
+            <th>Detalles</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for(item of data; track item.id) {
+        <tr>
+            <td>{{ item.code }}</td>
+            <td>{{ item.name }}</td>
+            <td>{{ item.type | typeLabel:'location' }}</td>
+            <td>{{ item.status | statusLabel:'location' }}</td>
+            <td>{{ item.building || '-' }}</td>
+            <td>{{ item.floor || '-' }}</td>
+            <td>{{ item.room || '-' }}</td>
+            <td>{{ item.address || '-' }}</td>
+            <td><a [routerLink]="['/location', item.id]">Ver más</a></td>
+        </tr>
+        }
+    </tbody>
+</table>

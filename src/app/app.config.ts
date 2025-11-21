@@ -12,6 +12,7 @@ import { environment } from '../enviroments/enviroment';
 import { provideHttpClient, withFetch, withInterceptors } from
   '@angular/common/http';
 import { apiUrlInterceptor } from './core/http/api-url-interceptor';
+import { provideLocationRepository } from './infrastructure/location';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -21,6 +22,7 @@ export const appConfig: ApplicationConfig = {
     provideClientHydration(withEventReplay()),
     provideEquipmentRepository(),
     provideMaintenanceRepository(),
+    provideLocationRepository(),
     provideHttpClient(
       withFetch(),
       withInterceptors([apiUrlInterceptor])

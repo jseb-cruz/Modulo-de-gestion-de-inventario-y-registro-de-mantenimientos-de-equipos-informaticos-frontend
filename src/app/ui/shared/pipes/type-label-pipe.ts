@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class TypeLabelPipe implements PipeTransform {
-  transform(value: string, entity: 'equipment' | 'maintenance' = 'equipment'): string {
+  transform(value: string, entity: 'equipment' | 'maintenance' | 'location' = 'equipment'): string {
     const equipmentMap: Record<string, string> = {
       Laptop: 'Portátil',
       Desktop: 'Escritorio',
@@ -23,7 +23,20 @@ export class TypeLabelPipe implements PipeTransform {
       Scheduled: 'Programado',
       Automated: 'Automatizado',
     };
-    const map = entity === 'maintenance' ? maintenanceMap : equipmentMap;
+    const locationMap: Record<string, string> = {
+      Office: 'Oficina',
+      Warehouse: 'Almacen',
+      DataCenter: 'Centro de datos',
+      Lab: 'Laboratorio',
+      Remote: 'Remoto',
+      Other: 'Otro',
+    };
+    const map = entity === 'maintenance'
+      ? maintenanceMap
+      : entity === 'location'
+        ? locationMap
+        : equipmentMap;
+
     return map[value] ?? value;
   }
 }

@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class StatusLabelPipe implements PipeTransform {
-  transform(value: string, entity: 'equipment' | 'maintenance' = 'equipment'): string {
+  transform(value: string, entity: 'equipment' | 'maintenance' | 'location' = 'equipment'): string {
     const equipmentMap: Record<string, string> = {
       Available: 'Disponible',
       InUse: 'En uso',
@@ -18,7 +18,18 @@ export class StatusLabelPipe implements PipeTransform {
       Done: 'Completado',
       Scheduled: 'Programado',
     };
-    const map = entity === 'maintenance' ? maintenanceMap : equipmentMap;
+    const locationMap: Record<string, string> = {
+      Active: 'Activo',
+      Inactive: 'Inactivo',
+      UnderMaintenance: 'En mantenimiento',
+      Deprecated: 'Deprecado',
+    };
+
+    const map = entity === 'maintenance'
+      ? maintenanceMap
+      : entity === 'location'
+        ? locationMap
+        : equipmentMap;
     return map[value] ?? value;
   }
 }

@@ -1,0 +1,27 @@
+@if (loading() && !location()) {
+<p>Cargando ubicacion...</p>
+}
+@if (location()) {
+<section class="container">
+    <h2>Detalles de la ubicacion</h2>
+    <ul>
+        <li><b>Codigo:</b> {{ location()!.code }}</li>
+        <li><b>Nombre:</b> {{ location()!.name }}</li>
+        <li><b>Tipo:</b> {{ location()!.type }}</li>
+        <li><b>Estado:</b> {{ location()!.status }}</li>
+        <li><b>Edificio:</b> {{ location()!.building || '-' }}</li>
+        <li><b>Piso:</b> {{ location()!.floor || '-' }}</li>
+        <li><b>Sala/Habitacion:</b> {{ location()!.room || '-' }}</li>
+        <li><b>Direccion:</b> {{ location()!.address || '-' }}</li>
+        <li><b>ID:</b> {{ location()!.id }}</li>
+    </ul>
+    <div>
+        <button (click)="goEdit()">Editar</button>
+        <button (click)="delete()">Eliminar</button>
+        <a routerLink="/location">Volver</a>
+    </div>
+</section>
+}
+@if (!loading() && !location()) {
+<p>No se encontro la ubicacion. <a routerLink="/location">Volver</a></p>
+}

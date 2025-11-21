@@ -5,6 +5,7 @@ import { equipmentListResolver } from
 import { maintenanceExistsGuard } from './ui/features/maintenance/guards/maintenance-exists-guard';
 import { maintenanceListResolver } from './ui/features/maintenance/resolvers/maintenance-list-resolver';
 import { Shell } from './ui/layout/shell/shell';
+import { locationExistsGuard } from './ui/features/location/guards/location-exists-guard';
 export const routes: Routes = [
     {
         path: '',
@@ -36,6 +37,29 @@ export const routes: Routes = [
             },
             { path: '', redirectTo: 'equipment', pathMatch: 'full' },
         ],
+    },
+    {
+        path: 'location',
+        loadComponent: () => import(
+            './ui/features/location/pages/location-list/location-list.page').then(m =>
+                m.LocationListPage)
+    },
+    {
+        path: 'location/new',
+        loadComponent: () => import(
+            './ui/features/location/pages/location-form/location-form.page').then(m =>
+                m.LocationFormPage)
+    },
+    {
+        path: 'location/:id',
+        loadComponent: () => import(
+            './ui/features/location/pages/location-detail/location-detail.page').then(m =>
+                m.LocationDetailPage)
+    },
+    {
+        path: 'location/:id/edit',
+        canActivate: [locationExistsGuard],
+        loadComponent: () => import('./ui/features/location/pages/location-form/location-form.page').then(m => m.LocationFormPage),
     },
     {
         path: 'maintenance',
