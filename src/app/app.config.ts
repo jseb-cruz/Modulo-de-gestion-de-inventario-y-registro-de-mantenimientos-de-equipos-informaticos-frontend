@@ -13,6 +13,8 @@ import { provideHttpClient, withFetch, withInterceptors } from
   '@angular/common/http';
 import { apiUrlInterceptor } from './core/http/api-url-interceptor';
 import { provideLocationRepository } from './infrastructure/location';
+import { provideUserRepository } from './infrastructure/user';
+import { authTokenInterceptor } from './core/http/auth-token.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -23,9 +25,10 @@ export const appConfig: ApplicationConfig = {
     provideEquipmentRepository(),
     provideMaintenanceRepository(),
     provideLocationRepository(),
+    provideUserRepository(),
     provideHttpClient(
       withFetch(),
-      withInterceptors([apiUrlInterceptor])
+      withInterceptors([apiUrlInterceptor, authTokenInterceptor])
     ),
     {
       provide: APP_CONFIG,

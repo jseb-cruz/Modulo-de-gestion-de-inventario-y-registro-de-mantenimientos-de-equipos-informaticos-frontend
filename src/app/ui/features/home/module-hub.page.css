@@ -1,0 +1,37 @@
+.hub {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 24px;
+  align-items: flex-start;
+}
+
+.hub-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 12px;
+  width: 100%;
+}
+
+a {
+  display: block;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  text-decoration: none;
+  color: #222;
+  background: #f8f8f8;
+  transition: background 0.2s ease;
+}
+
+a:hover {
+  background: #e8e8e8;
+}

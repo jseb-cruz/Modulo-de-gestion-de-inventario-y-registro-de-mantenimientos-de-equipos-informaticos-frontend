@@ -6,6 +6,7 @@ import { RouterLink } from '@angular/router';
 import { TypeLabelPipe } from '../../../../shared/pipes/type-label-pipe';
 import { StatusLabelPipe } from '../../../../shared/pipes/status-label-pipe';
 import { LocationStore } from '../../../location/state/location.store';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-equipment-list',
@@ -19,6 +20,7 @@ import { LocationStore } from '../../../location/state/location.store';
 export class EquipmentListPage {
   private readonly store = inject(EquipmentStore);
   private readonly locationStore = inject(LocationStore);
+  auth: AuthService = inject(AuthService);
   loading = this.store.loading;
   error = this.store.error;
   items = this.store.items;

@@ -10,7 +10,3 @@ export abstract class MaintenanceRepository {
     abstract remove(id: string): Promise<void>;
 }
 
- // abstract create(input: MaintenanceDTO): Promise<Maintenance>;
- // abstract update(id: string, input: Partial<MaintenanceDTO>): Promise<Maintenance>;
- // abstract delete(id: string): Promise<void>;
-

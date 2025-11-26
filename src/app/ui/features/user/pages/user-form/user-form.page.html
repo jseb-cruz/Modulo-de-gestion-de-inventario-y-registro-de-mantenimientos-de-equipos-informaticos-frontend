@@ -1,0 +1,35 @@
+<section class="container">
+  <h2>{{ isEdit ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+      <label>Email*
+        <input formControlName="email" type="email" />
+      </label>
+      <label>Nombre*
+        <input formControlName="name" />
+      </label>
+      <label>Rol*
+        <select formControlName="role">
+          <option value="Admin">Admin</option>
+          <option value="User">User</option>
+        </select>
+      </label>
+      <label>Estado*
+        <select formControlName="status">
+          <option value="Active">Active</option>
+          <option value="Inactive">Inactive</option>
+        </select>
+      </label>
+      <label>Password {{ isEdit ? '(opcional para cambiar)' : '*' }}
+        <input type="password" formControlName="password" />
+      </label>
+    </div>
+    <div class="actions">
+      <button type="submit" [disabled]="form.invalid || loading()">Guardar</button>
+      <a routerLink="/users">Cancelar</a>
+    </div>
+    @if(error()){
+    <p>{{ error() }}</p>
+    }
+  </form>
+</section>

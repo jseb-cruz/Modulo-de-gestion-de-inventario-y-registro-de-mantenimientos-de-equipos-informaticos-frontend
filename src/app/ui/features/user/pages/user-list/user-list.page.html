@@ -1,0 +1,32 @@
+<section class="container">
+  <header class="toolbar">
+    <h2>User Directory</h2>
+    <button type="button" routerLink="/users/new">+ Nuevo</button>
+    <button type="button" routerLink="/hub">Volver al hub</button>
+  </header>
+
+  <div class="filters">
+    <input type="text" placeholder="Buscar por nombre/email" (input)="onQuery($event)">
+    <select (change)="onRole($event)">
+      @for(role of roles; track role) {
+      <option [value]="role">{{ role }}</option>
+      }
+    </select>
+    <select (change)="onStatus($event)">
+      @for(status of statuses; track status) {
+      <option [value]="status">{{ status }}</option>
+      }
+    </select>
+  </div>
+
+  @if (loading()) {
+  <p>Cargando...</p>
+  }
+  @if (error()) {
+  <p>{{ error() }}</p>
+  }
+  @if (!loading() && !error()) {
+  <app-user-table [data]="filtered()" [showActions]="true" [onEdit]="onEdit" [onDelete]="onDelete" />
+  <p>Total: {{ total() }}</p>
+  }
+</section>

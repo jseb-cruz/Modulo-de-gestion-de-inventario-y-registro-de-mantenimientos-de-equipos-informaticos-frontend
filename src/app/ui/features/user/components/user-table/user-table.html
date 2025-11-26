@@ -1,0 +1,29 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Status</th>
+      @if(showActions){
+      <th>Acciones</th>
+      }
+    </tr>
+  </thead>
+  <tbody>
+    @for(user of data; track user.id) {
+    <tr>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.role }}</td>
+      <td>{{ user.status }}</td>
+      @if(showActions){
+      <td>
+        <button type="button" (click)="onEdit?.(user)">Editar</button>
+        <button type="button" (click)="onDelete?.(user)">Eliminar</button>
+      </td>
+      }
+    </tr>
+    }
+  </tbody>
+</table>

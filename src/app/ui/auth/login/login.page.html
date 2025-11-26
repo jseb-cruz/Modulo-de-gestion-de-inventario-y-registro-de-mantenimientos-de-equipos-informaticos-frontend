@@ -1,0 +1,19 @@
+<section class="container">
+  <h2>Login</h2>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="grid">
+      <label>Email
+        <input formControlName="email" type="email">
+      </label>
+      <label>Password
+        <input formControlName="password" type="password">
+      </label>
+    </div>
+    <div class="actions">
+      <button type="submit" [disabled]="loading() || form.invalid">Ingresar</button>
+    </div>
+    @if(error()){
+    <p>{{ error() }}</p>
+    }
+  </form>
+</section>

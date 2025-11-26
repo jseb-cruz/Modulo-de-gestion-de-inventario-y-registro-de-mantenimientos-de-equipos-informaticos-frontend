@@ -9,7 +9,4 @@ export abstract class EquipmentRepository {
         Promise<Equipment>;
     abstract remove(id: string): Promise<void>;
 }
-    // abstract create(input: EquipmentDTO): Promise<Equipment>;
-    // abstract update(id: string, input: Partial<EquipmentDTO>): Promise<Equipment>;
-    // abstract delete(id: string): Promise<void>;
-
+    

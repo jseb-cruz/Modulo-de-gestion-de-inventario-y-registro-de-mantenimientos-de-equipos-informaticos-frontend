@@ -1,0 +1,15 @@
+<section class="hub">
+  <header class="hub-header">
+    <h2>Select a module</h2>
+    <button type="button" (click)="logout()">Cerrar sesión</button>
+  </header>
+  <div class="grid">
+    <a routerLink="/equipment">Equipos</a>
+    <a routerLink="/maintenance">Mantenimientos</a>
+    <a routerLink="/change-password">Cambiar contraseña</a>
+    @if(auth.isAdmin()) {
+    <a routerLink="/location">Ubicaciones</a>
+    <a routerLink="/users">Usuarios</a>
+    }
+  </div>
+</section>

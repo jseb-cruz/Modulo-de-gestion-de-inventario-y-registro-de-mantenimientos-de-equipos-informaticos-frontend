@@ -1,8 +1,9 @@
 <section class="container">
     <header class="toolbar">
-        <h2>Location Inventory</h2>
-        <a routerLink="/location/new">+ Nuevo</a>
-    </header>
+    <h2>Location Inventory</h2>
+    <a routerLink="/location/new">+ Nuevo</a>
+    <button type="button" routerLink="/hub">Volver al hub</button>
+  </header>
     <div class="filters">
         <input type="text" placeholder="Buscar por codigo/nombre/direccion" (input)="onQuery($event)">
         <select name="selectType" id="selectType" (change)="onType($event)">

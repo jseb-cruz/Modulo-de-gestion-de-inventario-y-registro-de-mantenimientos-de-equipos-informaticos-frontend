@@ -6,6 +6,7 @@ import { MaintenanceStore } from '../../state/maintenance.store';
 import { TypeLabelPipe } from '../../../../shared/pipes/type-label-pipe';
 import { StatusLabelPipe } from '../../../../shared/pipes/status-label-pipe';
 import { EquipmentStore } from '../../../equipment/state/equipment.store';
+import { AuthService } from '../../../../auth/auth.service';
 
 @Component({
   selector: 'app-maintenance-list',
@@ -17,6 +18,7 @@ import { EquipmentStore } from '../../../equipment/state/equipment.store';
 export class MaintenanceListPage {
   private readonly store = inject(MaintenanceStore);
   private readonly equipmentStore = inject(EquipmentStore);
+  auth: AuthService = inject(AuthService);
   loading = this.store.loading;
   error = this.store.error;
   items = this.store.items;
