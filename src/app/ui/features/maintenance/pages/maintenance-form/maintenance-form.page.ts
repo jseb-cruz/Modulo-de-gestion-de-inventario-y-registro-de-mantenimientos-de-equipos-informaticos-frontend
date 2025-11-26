@@ -6,6 +6,7 @@ import { MaintenanceDTOInput, MaintenanceDTOSchema } from '../../schemas/mainten
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { MaintenanceStore } from '../../state/maintenance.store';
 import { StatusLabelPipe } from '../../../../shared/pipes/status-label-pipe';
+import { EquipmentStore } from '../../../equipment/state/equipment.store';
 
 @Component({
   selector: 'app-maintenance-form',
@@ -19,6 +20,8 @@ export class MaintenanceFormPage {
   public submitting = signal(false);
   public error = signal<string | null>(null);
   public success = signal(false);
+  private equipmentStore = inject(EquipmentStore);
+  equipments = this.equipmentStore.items;
 
   public form = this.fb.group({
     id: this.fb.control<string>(crypto.randomUUID(), { nonNullable: true }),
@@ -43,6 +46,9 @@ export class MaintenanceFormPage {
   id = '';
 
   ngOnInit(): void {
+    if (this.equipmentStore.items().length === 0) {
+      this.equipmentStore.fetchAll();
+    }
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
     if (this.id) {
       this.isEdit = true;
@@ -52,8 +58,8 @@ export class MaintenanceFormPage {
           id: m.id,
           equipmentId: m.equipmentId,
           type: m.type as any,
-          scheduledAt: this.toDateInput(m.scheduledAt),
-          performedAt: m.performedAt ? this.toDateInput(m.performedAt) : null,
+          scheduledAt: this.toDateTimeLocal(m.scheduledAt),
+          performedAt: m.performedAt ? this.toDateTimeLocal(m.performedAt) : null,
           technician: m.technician,
           status: m.status as any,
           cost: m.cost ?? null,
@@ -76,6 +82,16 @@ export class MaintenanceFormPage {
     return `${year}-${month}-${day}`;
   }
 
+  private toDateTimeLocal(d: Date): string {
+    const pad = (n: number) => n.toString().padStart(2, '0');
+    const year = d.getFullYear();
+    const month = pad(d.getMonth() + 1);
+    const day = pad(d.getDate());
+    const hours = pad(d.getHours());
+    const minutes = pad(d.getMinutes());
+    return `${year}-${month}-${day}T${hours}:${minutes}`;
+  }
+
   async onSubmit() {
     this.error.set(null);
     this.success.set(false);
@@ -87,6 +103,7 @@ export class MaintenanceFormPage {
         ...raw,
         cost: raw.cost == null ? undefined : raw.cost,
         performedAt: !raw.performedAt ? undefined : raw.performedAt,
+        notes: raw.notes == null || raw.notes === '' ? undefined : raw.notes,
       } as any;
       const parsed: MaintenanceDTOInput = MaintenanceDTOSchema.parse(toValidate);
       const dto = {

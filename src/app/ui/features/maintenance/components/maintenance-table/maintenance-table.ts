@@ -14,4 +14,5 @@ import { RouterLink } from '@angular/router';
 })
 export class MaintenanceTable {
  @Input() data: Maintenance[] = [];
+ @Input() equipmentMap?: Map<string, string>;
 }

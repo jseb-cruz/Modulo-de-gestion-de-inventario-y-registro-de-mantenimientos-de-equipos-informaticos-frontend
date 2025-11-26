@@ -3,8 +3,13 @@
   <form [formGroup]="form" (ngSubmit)="onSubmit()">
     <div class="grid">
       <label>
-        Mantenimiento (equipmentId)*
-        <input formControlName="equipmentId" placeholder="ID del equipo" />
+        Mantenimiento (equipment)*
+        <select formControlName="equipmentId">
+          <option value="">Seleccione equipo</option>
+          @for(eq of equipments(); track eq.id) {
+          <option [value]="eq.id">{{ eq.assetTag }} - {{ eq.model }}</option>
+          }
+        </select>
         @if(form.controls.equipmentId.invalid && form.controls.equipmentId.touched){
           <span class="error">Requerido</span>
         }

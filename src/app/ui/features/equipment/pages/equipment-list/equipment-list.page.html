@@ -35,7 +35,7 @@
     <p>{{ error() }}</p>
     }
     @if(!loading() && !error()) {
-    <app-equipment-table [data]="paged()" />
+    <app-equipment-table [data]="paged()" [locationMap]="locationMap()" />
     }
     @if(total() > pageSize()) {
     <div class="pagination">

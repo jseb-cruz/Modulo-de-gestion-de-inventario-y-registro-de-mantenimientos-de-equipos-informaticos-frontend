@@ -8,6 +8,7 @@ import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { EquipmentStore } from '../../state/equipment.store';
 import { toRecord } from '../../../../../shared/utils/metadata.util';
 import { StatusLabelPipe } from '../../../../shared/pipes/status-label-pipe';
+import { LocationStore } from '../../../location/state/location.store';
 
 
 
@@ -22,6 +23,8 @@ export class EquipmentFormPage {
   public submitting = signal(false);
   public error = signal<string | null>(null);
   public success = signal(false);
+  private locationStore = inject(LocationStore);
+  locations = this.locationStore.items;
 
   public form = this.fb.group({
     id: this.fb.control<string>(crypto.randomUUID(), { nonNullable: true }),
@@ -64,6 +67,9 @@ export class EquipmentFormPage {
   isEdit = false;
   id = '';
   ngOnInit(): void {
+    if (this.locationStore.items().length === 0) {
+      this.locationStore.fetchAll();
+    }
     this.id = this.route.snapshot.paramMap.get('id') ?? '';
     if (this.id) {
       this.isEdit = true;
@@ -135,5 +141,4 @@ export class EquipmentFormPage {
     }
   }
 }
-
 

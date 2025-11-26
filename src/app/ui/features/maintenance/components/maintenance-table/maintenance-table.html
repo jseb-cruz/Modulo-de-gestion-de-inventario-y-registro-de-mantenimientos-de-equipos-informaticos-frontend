@@ -1,7 +1,7 @@
 <table>
     <thead>
         <tr>
-            <th>Equipment ID</th>
+            <th>Equipment</th>
             <th>Technician</th>
             <th>Type</th>
             <th>Status</th>
@@ -11,7 +11,7 @@
     <tbody>
         @for(item of data; track item.id) {
         <tr>
-            <td>{{ item.equipmentId }}</td>
+            <td>{{ equipmentMap?.get(item.equipmentId) ?? item.equipmentId }}</td>
             <td>{{ item.technician }}</td>
             <td>{{ item.type | typeLabel:'maintenance' }}</td>
             <td>{{ item.status | statusLabel:'maintenance' }}</td>

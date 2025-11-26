@@ -31,12 +31,12 @@
   @if (loading()) {
   <p>Loading....</p>
   }
-  @if (error()) {
-  <p>{{ error() }}</p>
-  }
-  @if(!loading() && !error()) {
-  <app-maintenance-table [data]="paged()" />
-  }
+    @if (error()) {
+    <p>{{ error() }}</p>
+    }
+    @if(!loading() && !error()) {
+    <app-maintenance-table [data]="paged()" [equipmentMap]="equipmentMap()" />
+    }
   @if(total() > pageSize()) {
   <div class="pagination">
     <button (click)="previous()" [disabled]="page() === 1">Anterior</button>

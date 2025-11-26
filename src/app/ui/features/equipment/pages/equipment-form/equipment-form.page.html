@@ -5,8 +5,7 @@
             <label>
                 Asset Tag*
                 <input formControlName="assetTag" />
-                @if(form.controls.assetTag.invalid &&
-                form.controls.assetTag.touched){
+                @if(form.controls.assetTag.invalid && form.controls.assetTag.touched){
                 <span class="error">Requerido</span>
                 }
             </label>
@@ -39,21 +38,26 @@
                 </select>
             </label>
             <label>
-                Ubicación*
-                <input formControlName="locationId" />
+                Ubicacion*
+                <select formControlName="locationId">
+                    <option value="">Seleccione</option>
+                    @for(location of locations(); track location.id) {
+                    <option [value]="location.id">{{ location.code }} - {{ location.name }}</option>
+                    }
+                </select>
             </label>
             <label>
                 Fecha compra*
                 <input type="date" formControlName="purchaseDate" />
             </label>
             <label>
-                Fin garantía*
+                Fin garantia*
                 <input type="date" formControlName="warrantyEnd" />
             </label>
         </div>
         <div class="actions">
-            <button type="submit" [disabled]="form.invalid ||
-submitting()"> {{ isEdit ? 'Guardar Cambios' : 'Registrar' }} </button>
+            <button type="submit" [disabled]="form.invalid || submitting()"> {{ isEdit ? 'Guardar Cambios' : 'Registrar' }}
+            </button>
             <button type="reset">Limpiar</button>
             <a routerLink="/equipment">Cancelar</a>
         </div>
