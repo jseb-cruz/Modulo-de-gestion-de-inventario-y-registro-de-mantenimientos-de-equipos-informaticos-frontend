@@ -11,7 +11,7 @@ import { User } from '../../../../../domain/models/user.model';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './user-form.page.html',
-  styleUrls: ['./user-form.page.css']
+  styleUrls: []
 })
 export class UserFormPage {
   private fb = inject(FormBuilder);

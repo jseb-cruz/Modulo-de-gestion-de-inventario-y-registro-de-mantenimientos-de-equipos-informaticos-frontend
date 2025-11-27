@@ -19,6 +19,8 @@ import { MaintenanceDetailPage } from './ui/features/maintenance/pages/maintenan
 import { LocationListPage } from './ui/features/location/pages/location-list/location-list.page';
 import { LocationFormPage } from './ui/features/location/pages/location-form/location-form.page';
 import { LocationDetailPage } from './ui/features/location/pages/location-detail/location-detail.page';
+import { UserListPage } from './ui/features/user/pages/user-list/user-list.page';
+import { UserFormPage } from './ui/features/user/pages/user-form/user-form.page';
 export const routes: Routes = [
     {
         path: '',
@@ -62,17 +64,17 @@ export const routes: Routes = [
             {
                 path: 'users',
                 canActivate: [authGuard, adminGuard],
-                loadComponent: () => import('./ui/features/user/pages/user-list/user-list.page').then(m => m.UserListPage),
+                component: UserListPage,
             },
             {
                 path: 'users/new',
                 canActivate: [authGuard, adminGuard],
-                loadComponent: () => import('./ui/features/user/pages/user-form/user-form.page').then(m => m.UserFormPage),
+                component: UserFormPage,
             },
             {
                 path: 'users/:id/edit',
                 canActivate: [authGuard, adminGuard],
-                loadComponent: () => import('./ui/features/user/pages/user-form/user-form.page').then(m => m.UserFormPage),
+                component: UserFormPage,
             },
             {
                 path: 'change-password',

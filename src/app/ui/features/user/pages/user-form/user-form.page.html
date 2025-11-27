@@ -1,35 +1,107 @@
-<section class="container">
-  <h2>{{ isEdit ? 'Editar Usuario' : 'Nuevo Usuario' }}</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="grid">
-      <label>Email*
-        <input formControlName="email" type="email" />
-      </label>
-      <label>Nombre*
-        <input formControlName="name" />
-      </label>
-      <label>Rol*
-        <select formControlName="role">
-          <option value="Admin">Admin</option>
-          <option value="User">User</option>
-        </select>
-      </label>
-      <label>Estado*
-        <select formControlName="status">
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </select>
-      </label>
-      <label>Password {{ isEdit ? '(opcional para cambiar)' : '*' }}
-        <input type="password" formControlName="password" />
-      </label>
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-4xl mx-auto space-y-8">
+    <header class="flex flex-wrap items-center justify-between gap-4">
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+        <h1 class="text-3xl font-semibold leading-tight text-white">
+          {{ isEdit ? 'Editar usuario' : 'Nuevo usuario' }}
+        </h1>
+        <p class="text-sm text-slate-300">Define rol, estado y credenciales.</p>
+      </div>
+      <a
+        routerLink="/users"
+        class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+      >
+        Volver al listado
+      </a>
+    </header>
+
+    <div class="relative">
+      <div class="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-br from-emerald-400/30 via-cyan-400/25 to-indigo-400/20 blur-2xl opacity-70"></div>
+      <div class="relative rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl space-y-6">
+        <form class="space-y-6" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Email*
+              <input
+                type="email"
+                formControlName="email"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="user@empresa.com"
+              >
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Nombre*
+              <input
+                formControlName="name"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="Nombre completo"
+              >
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Rol*
+              <select
+                formControlName="role"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+              >
+                <option value="Admin" class="bg-slate-900 text-slate-100">Admin</option>
+                <option value="User" class="bg-slate-900 text-slate-100">User</option>
+              </select>
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Estado*
+              <select
+                formControlName="status"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+              >
+                <option value="Active" class="bg-slate-900 text-slate-100">Activo</option>
+                <option value="Inactive" class="bg-slate-900 text-slate-100">Inactivo</option>
+              </select>
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100 md:col-span-2">
+              Password {{ isEdit ? '(opcional para cambiar)' : '*' }}
+              <input
+                type="password"
+                formControlName="password"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="••••••••"
+              >
+            </label>
+          </div>
+
+          @if(error()){
+          <p class="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-100">
+            {{ error() }}
+          </p>
+          }
+
+          <div class="flex flex-wrap gap-3">
+            <button
+              type="submit"
+              [disabled]="form.invalid || loading()"
+              class="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:shadow-emerald-500/35 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-slate-950 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {{ isEdit ? 'Guardar cambios' : 'Registrar usuario' }}
+            </button>
+            <button
+              type="reset"
+              class="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Limpiar
+            </button>
+            <a
+              routerLink="/users"
+              class="inline-flex items-center rounded-xl border border-white/10 bg-white/0 px-5 py-3 text-sm font-semibold text-emerald-200 transition hover:bg-white/5"
+            >
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="actions">
-      <button type="submit" [disabled]="form.invalid || loading()">Guardar</button>
-      <a routerLink="/users">Cancelar</a>
-    </div>
-    @if(error()){
-    <p>{{ error() }}</p>
-    }
-  </form>
+  </div>
 </section>
