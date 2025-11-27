@@ -37,6 +37,7 @@ export class MaintenanceStore {
     readonly pageSize = signal<number>(10);
     readonly total = signal<number>(0);
 
+    // Descarga todos los mantenimientos y resetea la pagina.
     async fetchAll() {
         this.loading.set(true);
         this.error.set(null);
@@ -72,12 +73,14 @@ export class MaintenanceStore {
         return data.slice(start, start + this.pageSize());
     });
 
+    // Mantiene actualizado el total al cambiar filtros.
     constructor() {
         effect(() => {
             this.total.set(this.filtered().length);
         });
     }
 
+    // Filtros/paginacion que usa la UI.
     setQuery(query: string) {
         this.query.set(query);
         this.page.set(1);
@@ -103,6 +106,7 @@ export class MaintenanceStore {
     private readonly updateMaintenance = inject(UpdateMaintenanceUseCase);
     private readonly removeMaintenance = inject(RemoveMaintenanceUseCase);
 
+    // Busca mantenimiento en cache o backend.
     async findById(id: string) {
         const cached = this.items().find(e => e.id === id);
         if (cached) return cached;
@@ -126,6 +130,7 @@ export class MaintenanceStore {
             this.loading.set(false);
         }
     }
+    // Crea mantenimiento y lo agrega al inicio de la lista.
     async create(input: MaintenanceDTO) {
         this.loading.set(true);
         try {
@@ -135,6 +140,7 @@ export class MaintenanceStore {
             this.loading.set(false);
         }
     }
+    // Actualiza mantenimiento y lo reemplaza en memoria.
     async update(id: string, patch: Partial<MaintenanceDTO>) {
         this.loading.set(true);
         try {
@@ -144,6 +150,7 @@ export class MaintenanceStore {
             this.loading.set(false);
         }
     }
+    // Elimina mantenimiento del listado local tras borrar en backend.
     async remove(id: string) {
         this.loading.set(true);
         try {

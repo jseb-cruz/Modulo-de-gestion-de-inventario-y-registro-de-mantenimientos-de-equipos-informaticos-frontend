@@ -119,6 +119,7 @@ export class LoginPage {
     password: this.fb.control('', { nonNullable: true, validators: [Validators.required] })
   });
 
+  // Envía credenciales al endpoint de login y guarda la sesión.
   async onSubmit() {
     if (this.form.invalid) return;
     this.loading.set(true);

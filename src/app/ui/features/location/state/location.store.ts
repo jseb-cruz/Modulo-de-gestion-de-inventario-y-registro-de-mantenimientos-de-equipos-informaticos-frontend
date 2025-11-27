@@ -14,6 +14,7 @@ type Type = 'Office' | 'Warehouse' | 'DataCenter' | 'Lab' | 'Remote' | 'Other' |
     providedIn: 'root'
 })
 export class LocationStore {
+    // Caso de uso para cargar todas las ubicaciones.
     private readonly loadList = inject(LoadLocationListUseCase);
     readonly items = signal<Location[]>([]);
     readonly loading = signal(false);
@@ -32,6 +33,7 @@ export class LocationStore {
     private readonly updateLocation = inject(UpdateLocationUseCase);
     private readonly removeLocation = inject(RemoveLocationUseCase);
 
+    // Solicita ubicaciones al backend y resetea paginacion.
     async fetchAll() {
         this.loading.set(true);
         this.error.set(null);
@@ -69,12 +71,14 @@ export class LocationStore {
         return data.slice(start, start + this.pageSize());
     });
 
+    // Actualiza total al cambiar filtros.
     constructor() {
         effect(() => {
             this.total.set(this.filtered().length);
         });
     }
 
+    // Filtros y paginacion de UI.
     setQuery(query: string) {
         this.query.set(query);
         this.page.set(1);
@@ -99,6 +103,7 @@ export class LocationStore {
         this.page.set(1);
     }
 
+    // Usa cache o busca ubicacion en backend.
     async findById(id: string) {
         const cached = this.items().find(e => e.id === id);
         if (cached) return cached;
@@ -122,6 +127,7 @@ export class LocationStore {
             this.loading.set(false);
         }
     }
+    // Crea nueva ubicacion y la agrega al inicio.
     async create(input: LocationDTO) {
         this.loading.set(true);
         try {
@@ -131,6 +137,7 @@ export class LocationStore {
             this.loading.set(false);
         }
     }
+    // Actualiza ubicacion y reemplaza en lista local.
     async update(id: string, patch: Partial<LocationDTO>) {
         this.loading.set(true);
         try {
@@ -140,6 +147,7 @@ export class LocationStore {
             this.loading.set(false);
         }
     }
+    // Elimina ubicacion de la lista tras borrar en backend.
     async remove(id: string) {
         this.loading.set(true);
         try {

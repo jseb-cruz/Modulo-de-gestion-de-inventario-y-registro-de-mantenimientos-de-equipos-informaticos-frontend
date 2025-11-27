@@ -66,6 +66,7 @@ export class EquipmentFormPage {
   private router = inject(Router);
   isEdit = false;
   id = '';
+  // Determina si es edicion, carga ubicaciones y precarga datos del equipo si aplica.
   ngOnInit(): void {
     if (this.locationStore.items().length === 0) {
       this.locationStore.fetchAll();
@@ -97,6 +98,7 @@ export class EquipmentFormPage {
       }
     }
   }
+  // Convierte Date a formato yyyy-MM-dd para inputs tipo date.
   private toDateInput(d: Date): string {                        //metodo que faltaba
     const pad = (n: number) => n.toString().padStart(2, '0');
     const year = d.getFullYear();
@@ -104,6 +106,7 @@ export class EquipmentFormPage {
     const day = pad(d.getDate());
     return `${year}-${month}-${day}`;
   }
+  // Valida con Zod y envia create/update segun modo.
   async onSubmit() {
     this.error.set(null);
     this.success.set(false);

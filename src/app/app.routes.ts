@@ -21,111 +21,113 @@ import { LocationFormPage } from './ui/features/location/pages/location-form/loc
 import { LocationDetailPage } from './ui/features/location/pages/location-detail/location-detail.page';
 import { UserListPage } from './ui/features/user/pages/user-list/user-list.page';
 import { UserFormPage } from './ui/features/user/pages/user-form/user-form.page';
+
+// Definicion de rutas standalone con guards y resolvers para precarga de listas.
 export const routes: Routes = [
-    {
-        path: '',
-        pathMatch: 'full',
-        redirectTo: 'login',
-    },
-    {
-        path: 'login',
-        loadComponent: () => import('./ui/auth/login/login.page').then(m => m.LoginPage),
-    },
-    {
-        path: '',
-        component: Shell,
-        canActivateChild: [authGuard],
-        children: [
-            {
-                path: 'hub',
-                component: ModuleHubPage,
-            },
-            {
-                path: 'equipment',
-                canActivate: [authGuard],
-                component: EquipmentListPage,
-                resolve: { preload: equipmentListResolver }
-            },
-            {
-                path: 'equipment/new',
-                canActivate: [authGuard, adminGuard],
-                component: EquipmentFormPage
-            },
-            {
-                path: 'equipment/:id',
-                canActivate: [authGuard],
-                component: EquipmentDetailPage
-            },
-            {
-                path: 'equipment/:id/edit',
-                canActivate: [authGuard, equipmentExistsGuard, adminGuard],
-                component: EquipmentFormPage,
-            },
-            {
-                path: 'users',
-                canActivate: [authGuard, adminGuard],
-                component: UserListPage,
-            },
-            {
-                path: 'users/new',
-                canActivate: [authGuard, adminGuard],
-                component: UserFormPage,
-            },
-            {
-                path: 'users/:id/edit',
-                canActivate: [authGuard, adminGuard],
-                component: UserFormPage,
-            },
-            {
-                path: 'change-password',
-                canActivate: [authGuard],
-                component: ChangePasswordPage,
-            },
-            {
-                path: 'location',
-                canActivate: [authGuard, adminGuard],
-                component: LocationListPage
-            },
-            {
-                path: 'location/new',
-                canActivate: [authGuard, adminGuard],
-                component: LocationFormPage
-            },
-            {
-                path: 'location/:id',
-                canActivate: [authGuard, adminGuard],
-                component: LocationDetailPage
-            },
-            {
-                path: 'location/:id/edit',
-                canActivate: [authGuard, locationExistsGuard, adminGuard],
-                component: LocationFormPage,
-            },
-            {
-                path: 'maintenance',
-                canActivate: [authGuard],
-                component: MaintenanceListPage,
-                resolve: { preload: maintenanceListResolver }
-            },
-            {
-                path: 'maintenance/new',
-                canActivate: [authGuard, adminGuard],
-                component: MaintenanceFormPage
-            },
-            {
-                path: 'maintenance/:id',
-                canActivate: [authGuard],
-                component: MaintenanceDetailPage
-            },
-            {
-                path: 'maintenance/:id/edit',
-                canActivate: [authGuard, maintenanceExistsGuard, adminGuard],
-                component: MaintenanceFormPage,
-            },
-            { path: '', redirectTo: 'hub', pathMatch: 'full' },
-        ],
-    },
-    { path: '**', redirectTo: 'login' },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'login',
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./ui/auth/login/login.page').then(m => m.LoginPage),
+  },
+  {
+    path: '',
+    component: Shell,
+    canActivateChild: [authGuard],
+    children: [
+      {
+        path: 'hub',
+        component: ModuleHubPage,
+      },
+      {
+        path: 'equipment',
+        canActivate: [authGuard],
+        component: EquipmentListPage,
+        resolve: { preload: equipmentListResolver },
+      },
+      {
+        path: 'equipment/new',
+        canActivate: [authGuard, adminGuard],
+        component: EquipmentFormPage,
+      },
+      {
+        path: 'equipment/:id',
+        canActivate: [authGuard],
+        component: EquipmentDetailPage,
+      },
+      {
+        path: 'equipment/:id/edit',
+        canActivate: [authGuard, equipmentExistsGuard, adminGuard],
+        component: EquipmentFormPage,
+      },
+      {
+        path: 'users',
+        canActivate: [authGuard, adminGuard],
+        component: UserListPage,
+      },
+      {
+        path: 'users/new',
+        canActivate: [authGuard, adminGuard],
+        component: UserFormPage,
+      },
+      {
+        path: 'users/:id/edit',
+        canActivate: [authGuard, adminGuard],
+        component: UserFormPage,
+      },
+      {
+        path: 'change-password',
+        canActivate: [authGuard],
+        component: ChangePasswordPage,
+      },
+      {
+        path: 'location',
+        canActivate: [authGuard, adminGuard],
+        component: LocationListPage,
+      },
+      {
+        path: 'location/new',
+        canActivate: [authGuard, adminGuard],
+        component: LocationFormPage,
+      },
+      {
+        path: 'location/:id',
+        canActivate: [authGuard, adminGuard],
+        component: LocationDetailPage,
+      },
+      {
+        path: 'location/:id/edit',
+        canActivate: [authGuard, locationExistsGuard, adminGuard],
+        component: LocationFormPage,
+      },
+      {
+        path: 'maintenance',
+        canActivate: [authGuard],
+        component: MaintenanceListPage,
+        resolve: { preload: maintenanceListResolver },
+      },
+      {
+        path: 'maintenance/new',
+        canActivate: [authGuard, adminGuard],
+        component: MaintenanceFormPage,
+      },
+      {
+        path: 'maintenance/:id',
+        canActivate: [authGuard],
+        component: MaintenanceDetailPage,
+      },
+      {
+        path: 'maintenance/:id/edit',
+        canActivate: [authGuard, maintenanceExistsGuard, adminGuard],
+        component: MaintenanceFormPage,
+      },
+      { path: '', redirectTo: 'hub', pathMatch: 'full' },
+    ],
+  },
+  { path: '**', redirectTo: 'login' },
 ];
 
 

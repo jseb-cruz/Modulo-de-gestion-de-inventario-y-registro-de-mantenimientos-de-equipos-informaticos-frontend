@@ -43,6 +43,7 @@ export class UserStore {
     });
   }
 
+  // Descarga todos los usuarios.
   async fetchAll() {
     this.loading.set(true);
     this.error.set(null);
@@ -56,6 +57,7 @@ export class UserStore {
     }
   }
 
+  // Busca usuario en cache o backend.
   async findById(id: string) {
     const cached = this.items().find(u => u.id === id);
     if (cached) return cached;
@@ -76,10 +78,12 @@ export class UserStore {
     }
   }
 
+  // Setters de filtros usados en la UI.
   setQuery(v: string) { this.query.set(v); }
   setRole(v: 'All' | 'Admin' | 'User') { this.role.set(v); }
   setStatus(v: 'All' | 'Active' | 'Inactive') { this.status.set(v); }
 
+  // Crea un usuario y lo agrega al inicio.
   async create(input: Omit<UserDTO, 'id'> & { password: string }) {
     this.loading.set(true);
     try {
@@ -91,6 +95,7 @@ export class UserStore {
     }
   }
 
+  // Actualiza un usuario y reemplaza en memoria.
   async update(id: string, input: Partial<UserDTO> & { password?: string }) {
     this.loading.set(true);
     try {
@@ -102,6 +107,7 @@ export class UserStore {
     }
   }
 
+  // Elimina un usuario de la lista tras borrar en backend.
   async remove(id: string) {
     this.loading.set(true);
     try {

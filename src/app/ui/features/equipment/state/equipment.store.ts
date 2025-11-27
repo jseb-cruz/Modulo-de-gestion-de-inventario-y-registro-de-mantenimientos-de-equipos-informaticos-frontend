@@ -16,6 +16,7 @@ type Type = 'Laptop' | 'Desktop' | 'Printer' | 'Monitor' | 'Server' | 'Other' |
     providedIn: 'root'
 })
 export class EquipmentStore {
+    // Use case para cargar listado completo.
     private readonly loadList = inject(LoadEquipmentListUseCase);
     readonly items = signal<Equipment[]>([]);
     readonly loading = signal(false);
@@ -28,6 +29,7 @@ export class EquipmentStore {
     readonly page = signal<number>(1);
     readonly pageSize = signal<number>(10);
     readonly total = signal<number>(0);
+    // Obtiene todos los equipos y resetea la pagina actual.
     async fetchAll() {
         this.loading.set(true);
         this.error.set(null);
@@ -72,6 +74,7 @@ export class EquipmentStore {
         const start = (this.page() - 1) * this.pageSize();
         return data.slice(start, start + this.pageSize());
     });
+    // Filtros y paginacion para la UI.
     setQuery(query: string) {
         this.query.set(query);
         this.page.set(1);
@@ -97,6 +100,7 @@ export class EquipmentStore {
     private readonly updateEquipment = inject(UpdateEquipmentUseCase);
     private readonly removeEquipment = inject(RemoveEquipmentUseCase);
 
+    // Busca un equipo por id usando cache local y backend.
     async findById(id: string) {
         const cached = this.items().find(e => e.id === id);
         if (cached) return cached;
@@ -120,6 +124,7 @@ export class EquipmentStore {
             this.loading.set(false);
         }
     }
+    // Crea un equipo y lo agrega al inicio de la lista.
     async create(input: EquipmentDTO) {
         this.loading.set(true);
         try {
@@ -129,6 +134,7 @@ export class EquipmentStore {
             this.loading.set(false);
         }
     }
+    // Actualiza un equipo y reemplaza el item en memoria.
     async update(id: string, patch: Partial<EquipmentDTO>) {
         this.loading.set(true);
         try {
@@ -138,6 +144,7 @@ export class EquipmentStore {
             this.loading.set(false);
         }
     }
+    // Elimina un equipo de la lista tras borrar en backend.
     async remove(id: string) {
         this.loading.set(true);
         try {

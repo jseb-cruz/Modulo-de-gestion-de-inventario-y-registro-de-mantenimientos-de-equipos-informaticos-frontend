@@ -9,6 +9,7 @@ export class AuthService {
   token = signal<string | null>(null);
   user = signal<User | null>(null);
 
+  // Carga token/usuario persistido al iniciar la app.
   constructor(private router: Router) {
     if (typeof window !== 'undefined' && window.localStorage) {
       this.token.set(window.localStorage.getItem(this.key));
@@ -23,6 +24,7 @@ export class AuthService {
     }
   }
 
+  // Guarda sesion en memoria y localStorage.
   setSession(token: string, user: User) {
     this.token.set(token);
     this.user.set(user);
@@ -32,6 +34,7 @@ export class AuthService {
     }
   }
 
+  // Limpia la sesion y regresa al login.
   clear() {
     this.token.set(null);
     this.user.set(null);
@@ -42,10 +45,12 @@ export class AuthService {
     this.router.navigate(['/login']);
   }
 
+  // Determina si hay token valido en memoria.
   isAuthenticated(): boolean {
     return !!this.token();
   }
 
+  // Verifica si el usuario logueado tiene rol Admin.
   isAdmin(): boolean {
     return this.user()?.role === 'Admin';
   }
