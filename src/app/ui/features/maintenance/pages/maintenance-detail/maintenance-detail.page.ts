@@ -2,11 +2,13 @@ import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { MaintenanceStore } from '../../state/maintenance.store';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Maintenance } from '../../../../../domain/models/maintenance.model';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-maintenance-detail',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './maintenance-detail.page.html',
-  styleUrl: './maintenance-detail.page.css'
+  styleUrls: []
 })
 export class MaintenanceDetailPage {
   private store = inject(MaintenanceStore);

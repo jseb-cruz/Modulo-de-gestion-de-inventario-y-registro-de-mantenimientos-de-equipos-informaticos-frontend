@@ -1,91 +1,167 @@
-<section class="container">
-  <h2>{{ isEdit ? 'Editar Mantenimiento' : 'Nuevo Mantenimiento' }}</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="grid">
-      <label>
-        Mantenimiento (equipment)*
-        <select formControlName="equipmentId">
-          <option value="">Seleccione equipo</option>
-          @for(eq of equipments(); track eq.id) {
-          <option [value]="eq.id">{{ eq.assetTag }} - {{ eq.model }}</option>
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-5xl mx-auto space-y-8">
+    <header class="flex flex-wrap items-center justify-between gap-4">
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+        <h1 class="text-3xl font-semibold leading-tight text-white">
+          {{ isEdit ? 'Editar mantenimiento' : 'Nuevo mantenimiento' }}
+        </h1>
+        <p class="text-sm text-slate-300">Programa y registra servicios aplicados a tus equipos.</p>
+      </div>
+      <a
+        routerLink="/maintenance"
+        class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+      >
+        Volver al listado
+      </a>
+    </header>
+
+    <div class="relative">
+      <div class="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-br from-cyan-400/30 via-emerald-400/20 to-indigo-400/20 blur-2xl opacity-70"></div>
+      <div class="relative rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl space-y-6">
+        <form class="space-y-6" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Equipo*
+              <select
+                formControlName="equipmentId"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+              >
+                <option value="" class="bg-slate-900 text-slate-100">Seleccione equipo</option>
+                @for(eq of equipments(); track eq.id) {
+                <option [value]="eq.id" class="bg-slate-900 text-slate-100">{{ eq.assetTag }} - {{ eq.model }}</option>
+                }
+              </select>
+              @if(form.controls.equipmentId.invalid && form.controls.equipmentId.touched){
+              <span class="text-xs text-red-200">Requerido</span>
+              }
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Tipo*
+              <select
+                formControlName="type"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+              >
+                <option value="Inspection" class="bg-slate-900 text-slate-100">Inspección</option>
+                <option value="Preventive" class="bg-slate-900 text-slate-100">Preventivo</option>
+                <option value="Corrective" class="bg-slate-900 text-slate-100">Correctivo</option>
+                <option value="Predictive" class="bg-slate-900 text-slate-100">Predictivo</option>
+                <option value="Proactive" class="bg-slate-900 text-slate-100">Proactivo</option>
+                <option value="Reactive" class="bg-slate-900 text-slate-100">Reactivo</option>
+                <option value="Scheduled" class="bg-slate-900 text-slate-100">Programado</option>
+                <option value="Automated" class="bg-slate-900 text-slate-100">Automatizado</option>
+              </select>
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Programado para*
+              <input
+                type="datetime-local"
+                formControlName="scheduledAt"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+              >
+              @if(form.controls.scheduledAt.invalid && form.controls.scheduledAt.touched){
+              <span class="text-xs text-red-200">Requerido</span>
+              }
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Ejecutado el (opcional)
+              <input
+                type="datetime-local"
+                formControlName="performedAt"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+              >
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Técnico*
+              <input
+                type="text"
+                formControlName="technician"
+                placeholder="Nombre del técnico"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+              >
+              @if(form.controls.technician.invalid && form.controls.technician.touched){
+              <span class="text-xs text-red-200">Requerido</span>
+              }
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Estado*
+              <select
+                formControlName="status"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+              >
+                <option value="Scheduled" class="bg-slate-900 text-slate-100">Programado</option>
+                <option value="InProgress" class="bg-slate-900 text-slate-100">En progreso</option>
+                <option value="Done" class="bg-slate-900 text-slate-100">Completado</option>
+                <option value="Active" class="bg-slate-900 text-slate-100">Activo</option>
+                <option value="Inactive" class="bg-slate-900 text-slate-100">Inactivo</option>
+              </select>
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Costo (opcional)
+              <input
+                type="number"
+                formControlName="cost"
+                min="0"
+                step="0.01"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+              >
+              @if(form.controls.cost.touched && form.controls.cost.hasError('min')){
+              <span class="text-xs text-red-200">No puede ser negativo</span>
+              }
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100 md:col-span-2">
+              Notas (opcional)
+              <textarea
+                formControlName="notes"
+                rows="3"
+                placeholder="Observaciones"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+              ></textarea>
+            </label>
+          </div>
+
+          @if(error()){
+          <p class="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-100">
+            {{ error() }}
+          </p>
           }
-        </select>
-        @if(form.controls.equipmentId.invalid && form.controls.equipmentId.touched){
-          <span class="error">Requerido</span>
-        }
-      </label>
 
-      <label>
-        Tipo*
-        <select formControlName="type">
-          <option value="Inspection">Inspección</option>
-          <option value="Preventive">Preventivo</option>
-          <option value="Corrective">Correctivo</option>
-          <option value="Predictive">Predictivo</option>
-          <option value="Proactive">Proactivo</option>
-          <option value="Reactive">Reactivo</option>
-          <option value="Scheduled">Programado</option>
-          <option value="Automated">Automatizado</option>
-        </select>
-      </label>
+          @if(success()){
+          <p class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100">
+            Guardado correctamente.
+          </p>
+          }
 
-      <label>
-        Programado para*
-        <input type="datetime-local" formControlName="scheduledAt" />
-        @if(form.controls.scheduledAt.invalid && form.controls.scheduledAt.touched){
-          <span class="error">Requerido</span>
-        }
-      </label>
-
-      <label>
-        Ejecutado el (opcional)
-        <input type="datetime-local" formControlName="performedAt" />
-      </label>
-
-      <label>
-        Técnico*
-        <input type="text" formControlName="technician" placeholder="Nombre del técnico" />
-        @if(form.controls.technician.invalid && form.controls.technician.touched){
-          <span class="error">Requerido</span>
-        }
-      </label>
-
-      <label>
-        Estado*
-        <select formControlName="status">
-          <option value="Scheduled">Programado</option>
-          <option value="InProgress">En progreso</option>
-          <option value="Done">Completado</option>
-          <option value="Active">Activo</option>
-          <option value="Inactive">Inactivo</option>
-        </select>
-      </label>
-
-      <label>
-        Costo (opcional)
-        <input type="number" formControlName="cost" min="0" step="0.01" />
-        @if(form.controls.cost.touched && form.controls.cost.hasError('min')){
-          <span class="error">No puede ser negativo</span>
-        }
-      </label>
-
-      <label class="span-2">
-        Notas (opcional)
-        <textarea formControlName="notes" rows="3" placeholder="Observaciones"></textarea>
-      </label>
+          <div class="flex flex-wrap gap-3">
+            <button
+              type="submit"
+              [disabled]="form.invalid || submitting()"
+              class="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:shadow-emerald-500/35 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-slate-950 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {{ isEdit ? 'Guardar cambios' : 'Registrar mantenimiento' }}
+            </button>
+            <button
+              type="reset"
+              class="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Limpiar
+            </button>
+            <a
+              routerLink="/maintenance"
+              class="inline-flex items-center rounded-xl border border-white/10 bg-white/0 px-5 py-3 text-sm font-semibold text-emerald-200 transition hover:bg-white/5"
+            >
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
-
-    <div class="actions">
-      <button type="submit" [disabled]="form.invalid || submitting()">{{ isEdit ? 'Guardar Cambios' : 'Registrar' }}</button>
-      <button type="reset">Limpiar</button>
-      <a routerLink="/maintenance">Cancelar</a>
-    </div>
-
-    @if(error()){
-      <p class="error">{{ error() }}</p>
-    }
-    @if(success()){
-      <p class="success">Guardado correctamente (simulado)</p>
-    }
-  </form>
+  </div>
 </section>

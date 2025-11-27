@@ -1,27 +1,96 @@
-@if (loading() && !location()) {
-<p>Cargando ubicacion...</p>
-}
-@if (location()) {
-<section class="container">
-    <h2>Detalles de la ubicacion</h2>
-    <ul>
-        <li><b>Codigo:</b> {{ location()!.code }}</li>
-        <li><b>Nombre:</b> {{ location()!.name }}</li>
-        <li><b>Tipo:</b> {{ location()!.type }}</li>
-        <li><b>Estado:</b> {{ location()!.status }}</li>
-        <li><b>Edificio:</b> {{ location()!.building || '-' }}</li>
-        <li><b>Piso:</b> {{ location()!.floor || '-' }}</li>
-        <li><b>Sala/Habitacion:</b> {{ location()!.room || '-' }}</li>
-        <li><b>Direccion:</b> {{ location()!.address || '-' }}</li>
-        <li><b>ID:</b> {{ location()!.id }}</li>
-    </ul>
-    <div>
-        <button (click)="goEdit()">Editar</button>
-        <button (click)="delete()">Eliminar</button>
-        <a routerLink="/location">Volver</a>
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-5xl mx-auto space-y-8">
+    @if (loading() && !location()) {
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4 animate-pulse">
+      <div class="h-4 w-40 rounded bg-white/10"></div>
+      <div class="h-24 rounded-xl bg-white/10"></div>
+      <div class="flex gap-2">
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+      </div>
     </div>
+    }
+
+    @if (location()) {
+    <div class="space-y-4">
+      <header class="grid md:grid-cols-[1fr_auto] items-start gap-4">
+        <div class="space-y-1">
+          <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+          <h1 class="text-3xl font-semibold text-white break-words">Ubicación {{ location()!.code }}</h1>
+          <p class="text-sm text-slate-300">Detalle completo de la ubicación seleccionada.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-start md:justify-end gap-3">
+          <a
+            routerLink="/location"
+            class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+          >
+            Volver al listado
+          </a>
+          <button
+            type="button"
+            (click)="goEdit()"
+            class="rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:shadow-emerald-500/35"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            (click)="delete()"
+            class="rounded-xl border border-red-500/40 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-500/25"
+          >
+            Eliminar
+          </button>
+        </div>
+      </header>
+
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-emerald-500/5">
+        <dl class="grid gap-4 md:grid-cols-2">
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Código</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.code }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Nombre</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.name }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Tipo</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.type }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Estado</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.status }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Edificio</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.building || 'N/D' }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Piso</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.floor || 'N/D' }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Sala/Habitación</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.room || 'N/D' }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Dirección</dt>
+            <dd class="text-lg font-semibold text-white">{{ location()!.address || 'N/D' }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">ID</dt>
+            <dd class="text-sm text-slate-300 break-words">{{ location()!.id }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    }
+
+    @if (!loading() && !location()) {
+    <div class="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+      No se encontró la ubicación.
+      <a routerLink="/location" class="font-semibold text-emerald-200 hover:text-emerald-100 transition">Volver</a>
+    </div>
+    }
+  </div>
 </section>
-}
-@if (!loading() && !location()) {
-<p>No se encontro la ubicacion. <a routerLink="/location">Volver</a></p>
-}

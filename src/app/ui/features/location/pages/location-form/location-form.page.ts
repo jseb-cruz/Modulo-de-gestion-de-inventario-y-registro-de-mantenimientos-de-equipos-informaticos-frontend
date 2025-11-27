@@ -12,7 +12,7 @@ import { Location } from '../../../../../domain/models/location.model';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './location-form.page.html',
-  styleUrl: './location-form.page.css'
+  styleUrls: []
 })
 export class LocationFormPage {
   private fb = inject(FormBuilder);

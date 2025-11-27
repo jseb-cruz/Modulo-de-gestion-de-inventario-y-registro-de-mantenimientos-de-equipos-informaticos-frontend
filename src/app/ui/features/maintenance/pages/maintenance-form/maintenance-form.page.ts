@@ -13,7 +13,7 @@ import { EquipmentStore } from '../../../equipment/state/equipment.store';
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './maintenance-form.page.html',
-  styleUrls: ['./maintenance-form.page.css']
+  styleUrls: []
 })
 export class MaintenanceFormPage {
   private fb = inject(FormBuilder);

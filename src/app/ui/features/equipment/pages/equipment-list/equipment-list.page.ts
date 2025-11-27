@@ -14,7 +14,7 @@ import { AuthService } from '../../../../auth/auth.service';
   imports: [CommonModule, EquipmentTable, RouterLink, TypeLabelPipe,
     StatusLabelPipe],
   templateUrl: './equipment-list.page.html',
-  styleUrls: ['./equipment-list.page.css']
+  styleUrls: []
 })
 
 export class EquipmentListPage {

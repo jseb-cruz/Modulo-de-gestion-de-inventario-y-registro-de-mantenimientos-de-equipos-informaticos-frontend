@@ -16,7 +16,7 @@ import { LocationStore } from '../../../location/state/location.store';
   selector: 'app-equipment-form',
   imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './equipment-form.page.html',
-  styleUrls: ['./equipment-form.page.css']
+  styleUrls: []
 })
 export class EquipmentFormPage {
   private fb = inject(FormBuilder);

@@ -1,24 +1,92 @@
-@if (loading() && !equipment()) {
-<p>Cargando equipo</p>
-}
-@if (equipment()) {
-<section>
-    <h2>Detalles del equipo</h2>
-    <ul>
-        <li><b>Asset Tag:</b> {{ equipment()!.assetTag }}</li>
-        <li><b>Serial:</b> {{ equipment()!.serialNumber }}</li>
-        <li><b>Modelo:</b> {{ equipment()!.model }}</li>
-        <li><b>Tipo:</b> {{ equipment()!.type }}</li>
-        <li><b>Estado:</b> {{ equipment()!.status }}</li>
-        <li><b>Ubicación:</b> {{ equipment()!.locationId }}</li>
-    </ul>
-    <div>
-        <button (click)="goEdit()">Editar</button>
-        <button (click)="delete()">Eliminar</button>
-        <a routerLink="/equipment">Volver</a>
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-5xl mx-auto space-y-8">
+    @if (loading() && !equipment()) {
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4 animate-pulse">
+      <div class="h-4 w-40 rounded bg-white/10"></div>
+      <div class="h-24 rounded-xl bg-white/10"></div>
+      <div class="flex gap-2">
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+      </div>
     </div>
+    }
+
+    @if (equipment()) {
+    <div class="space-y-4">
+      <header class="flex flex-wrap items-center justify-between gap-4">
+        <div class="space-y-1">
+          <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+          <h1 class="text-3xl font-semibold text-white">Equipo {{ equipment()!.assetTag }}</h1>
+          <p class="text-sm text-slate-300">Detalle completo del activo seleccionado.</p>
+        </div>
+        <div class="flex flex-wrap items-center gap-3">
+          <a
+            routerLink="/equipment"
+            class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+          >
+            Volver al listado
+          </a>
+          <button
+            type="button"
+            (click)="goEdit()"
+            class="rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:shadow-emerald-500/35"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            (click)="delete()"
+            class="rounded-xl border border-red-500/40 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-500/25"
+          >
+            Eliminar
+          </button>
+        </div>
+      </header>
+
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-emerald-500/5">
+        <dl class="grid gap-4 md:grid-cols-2">
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Asset Tag</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.assetTag }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Serial</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.serialNumber }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Modelo</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.model }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Tipo</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.type }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Estado</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.status }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Ubicación</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.locationId }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Fecha compra</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.purchaseDate | date:'yyyy-MM-dd' }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Fin garantía</dt>
+            <dd class="text-lg font-semibold text-white">{{ equipment()!.warrantyEnd | date:'yyyy-MM-dd' }}</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    }
+
+    @if (!loading() && !equipment()) {
+    <div class="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+      No se encontró el equipo.
+      <a routerLink="/equipment" class="font-semibold text-emerald-200 hover:text-emerald-100 transition">Volver</a>
+    </div>
+    }
+  </div>
 </section>
-}
-@if (!loading() && !equipment()) {
-<p>No se encontró el equipo. <a routerLink="/equipment">Volver</a></p>
-}

@@ -2,11 +2,13 @@ import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { LocationStore } from '../../state/location.store';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Location } from '../../../../../domain/models/location.model';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-location-detail',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './location-detail.page.html',
-  styleUrl: './location-detail.page.css'
+  styleUrls: []
 })
 export class LocationDetailPage {
   private store = inject(LocationStore);

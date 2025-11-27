@@ -1,9 +1,16 @@
-<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
-  <div class="max-w-6xl mx-auto space-y-10">
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10 relative overflow-hidden">
+  <div class="pointer-events-none absolute inset-0">
+    <div class="absolute -top-32 -left-24 h-72 w-72 rounded-full bg-emerald-500/20 blur-3xl"></div>
+    <div class="absolute top-10 right-0 h-64 w-64 rounded-full bg-cyan-500/15 blur-3xl"></div>
+    <div class="absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-indigo-500/10 blur-3xl"></div>
+  </div>
+
+  <div class="relative max-w-6xl mx-auto space-y-10">
     <header class="flex flex-wrap items-center justify-between gap-4">
-      <div>
+      <div class="space-y-2">
         <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
-        <h2 class="text-3xl font-semibold leading-tight">Selecciona un módulo</h2>
+        <h2 class="text-3xl md:text-4xl font-semibold leading-tight text-white">Explora tus módulos</h2>
+        <p class="text-sm text-slate-300">Accesos rápidos a inventario, mantenimientos y administración.</p>
       </div>
       <button
         type="button"
@@ -15,50 +22,80 @@
     </header>
 
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-      <a routerLink="/equipment" class="card-link">
-        <div class="card-icon bg-emerald-400/15 text-emerald-200">EQ</div>
-        <div>
-          <p class="text-xs uppercase tracking-[0.15em] text-emerald-200">Inventario</p>
-          <h3 class="text-xl font-semibold text-white">Equipos</h3>
-          <p class="text-sm text-slate-300">Gestiona activos y estado</p>
+      <a routerLink="/equipment" class="group rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur hover:-translate-y-1 hover:border-emerald-400/40 transition shadow-lg shadow-emerald-500/5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/15 text-emerald-200">
+            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="4" y="4" width="7" height="7" rx="2" />
+              <rect x="13" y="4" width="7" height="7" rx="2" />
+              <rect x="4" y="13" width="7" height="7" rx="2" />
+              <rect x="13" y="13" width="7" height="7" rx="2" />
+            </svg>
+          </span>
+          <span class="text-xs uppercase tracking-[0.15em] text-emerald-200 group-hover:text-emerald-100">Inventario</span>
         </div>
+        <h3 class="text-xl font-semibold text-white">Equipos</h3>
+        <p class="text-sm text-slate-300">Gestiona activos, estados y detalles.</p>
       </a>
 
-      <a routerLink="/maintenance" class="card-link">
-        <div class="card-icon bg-cyan-400/15 text-cyan-200">MT</div>
-        <div>
-          <p class="text-xs uppercase tracking-[0.15em] text-cyan-200">Operación</p>
-          <h3 class="text-xl font-semibold text-white">Mantenimientos</h3>
-          <p class="text-sm text-slate-300">Programados y correctivos</p>
+      <a routerLink="/maintenance" class="group rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur hover:-translate-y-1 hover:border-cyan-400/40 transition shadow-lg shadow-cyan-500/5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-cyan-400/15 text-cyan-200">
+            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 20h14M12 4l3 8H9l3-8Z" />
+              <path d="M9 12h6" />
+            </svg>
+          </span>
+          <span class="text-xs uppercase tracking-[0.15em] text-cyan-200 group-hover:text-cyan-100">Operación</span>
         </div>
+        <h3 class="text-xl font-semibold text-white">Mantenimientos</h3>
+        <p class="text-sm text-slate-300">Programados, correctivos y estado de ejecución.</p>
       </a>
 
-      <a routerLink="/change-password" class="card-link">
-        <div class="card-icon bg-indigo-400/15 text-indigo-200">PW</div>
-        <div>
-          <p class="text-xs uppercase tracking-[0.15em] text-indigo-200">Seguridad</p>
-          <h3 class="text-xl font-semibold text-white">Cambiar contraseña</h3>
-          <p class="text-sm text-slate-300">Actualiza tu acceso</p>
+      <a routerLink="/change-password" class="group rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur hover:-translate-y-1 hover:border-indigo-400/40 transition shadow-lg shadow-indigo-500/5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-400/15 text-indigo-200">
+            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M6 11V7a6 6 0 1 1 12 0v4" />
+              <rect x="5" y="11" width="14" height="10" rx="2" />
+              <path d="M12 15v2" />
+            </svg>
+          </span>
+          <span class="text-xs uppercase tracking-[0.15em] text-indigo-200 group-hover:text-indigo-100">Seguridad</span>
         </div>
+        <h3 class="text-xl font-semibold text-white">Cambiar contraseña</h3>
+        <p class="text-sm text-slate-300">Actualiza tus credenciales de acceso.</p>
       </a>
 
       @if(auth.isAdmin()) {
-      <a routerLink="/location" class="card-link">
-        <div class="card-icon bg-amber-400/15 text-amber-200">UB</div>
-        <div>
-          <p class="text-xs uppercase tracking-[0.15em] text-amber-200">Ubicación</p>
-          <h3 class="text-xl font-semibold text-white">Ubicaciones</h3>
-          <p class="text-sm text-slate-300">Sedes y espacios</p>
+      <a routerLink="/location" class="group rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur hover:-translate-y-1 hover:border-amber-400/40 transition shadow-lg shadow-amber-500/5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-amber-400/15 text-amber-200">
+            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 21s-7-6.5-7-11a7 7 0 1 1 14 0c0 4.5-7 11-7 11Z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
+          </span>
+          <span class="text-xs uppercase tracking-[0.15em] text-amber-200 group-hover:text-amber-100">Ubicación</span>
         </div>
+        <h3 class="text-xl font-semibold text-white">Ubicaciones</h3>
+        <p class="text-sm text-slate-300">Sedes, almacenes y salas de tus activos.</p>
       </a>
 
-      <a routerLink="/users" class="card-link">
-        <div class="card-icon bg-rose-400/15 text-rose-200">US</div>
-        <div>
-          <p class="text-xs uppercase tracking-[0.15em] text-rose-200">Control</p>
-          <h3 class="text-xl font-semibold text-white">Usuarios</h3>
-          <p class="text-sm text-slate-300">Roles y permisos</p>
+      <a routerLink="/users" class="group rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur hover:-translate-y-1 hover:border-rose-400/40 transition shadow-lg shadow-rose-500/5">
+        <div class="flex items-center justify-between mb-3">
+          <span class="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-rose-400/15 text-rose-200">
+            <svg viewBox="0 0 24 24" class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="8" r="4" />
+              <circle cx="17" cy="10" r="3" />
+              <path d="M3 21v-1a5 5 0 0 1 5-5h2.5" />
+              <path d="M14 21v-1a4 4 0 0 1 4-4h1" />
+            </svg>
+          </span>
+          <span class="text-xs uppercase tracking-[0.15em] text-rose-200 group-hover:text-rose-100">Control</span>
         </div>
+        <h3 class="text-xl font-semibold text-white">Usuarios</h3>
+        <p class="text-sm text-slate-300">Roles, permisos y accesos.</p>
       </a>
       }
     </div>

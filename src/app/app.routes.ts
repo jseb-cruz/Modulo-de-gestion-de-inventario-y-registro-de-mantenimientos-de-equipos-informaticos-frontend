@@ -9,8 +9,16 @@ import { locationExistsGuard } from './ui/features/location/guards/location-exis
 import { adminGuard } from './ui/auth/admin.guard';
 import { authGuard } from './ui/auth/auth.guard';
 import { EquipmentListPage } from './ui/features/equipment/pages/equipment-list/equipment-list.page';
+import { EquipmentDetailPage } from './ui/features/equipment/pages/equipment-detail/equipment-detail.page';
+import { EquipmentFormPage } from './ui/features/equipment/pages/equipment-form/equipment-form.page';
 import { ChangePasswordPage } from './ui/auth/change-password/change-password.page';
 import { ModuleHubPage } from './ui/features/home/module-hub.page';
+import { MaintenanceListPage } from './ui/features/maintenance/pages/maintenance-list/maintenance-list.page';
+import { MaintenanceFormPage } from './ui/features/maintenance/pages/maintenance-form/maintenance-form.page';
+import { MaintenanceDetailPage } from './ui/features/maintenance/pages/maintenance-detail/maintenance-detail.page';
+import { LocationListPage } from './ui/features/location/pages/location-list/location-list.page';
+import { LocationFormPage } from './ui/features/location/pages/location-form/location-form.page';
+import { LocationDetailPage } from './ui/features/location/pages/location-detail/location-detail.page';
 export const routes: Routes = [
     {
         path: '',
@@ -39,21 +47,17 @@ export const routes: Routes = [
             {
                 path: 'equipment/new',
                 canActivate: [authGuard, adminGuard],
-                loadComponent: () => import(
-                    './ui/features/equipment/pages/equipment-form/equipment-form.page').then(m =>
-                        m.EquipmentFormPage)
+                component: EquipmentFormPage
             },
             {
                 path: 'equipment/:id',
                 canActivate: [authGuard],
-                loadComponent: () => import(
-                    './ui/features/equipment/pages/equipment-detail/equipment-detail.page').then(
-                        m => m.EquipmentDetailPage)
+                component: EquipmentDetailPage
             },
             {
                 path: 'equipment/:id/edit',
                 canActivate: [authGuard, equipmentExistsGuard, adminGuard],
-                loadComponent: () => import('./ui/features/equipment/pages/equipment-form/equipment-form.page').then(m => m.EquipmentFormPage),
+                component: EquipmentFormPage,
             },
             {
                 path: 'users',
@@ -75,61 +79,49 @@ export const routes: Routes = [
                 canActivate: [authGuard],
                 component: ChangePasswordPage,
             },
+            {
+                path: 'location',
+                canActivate: [authGuard, adminGuard],
+                component: LocationListPage
+            },
+            {
+                path: 'location/new',
+                canActivate: [authGuard, adminGuard],
+                component: LocationFormPage
+            },
+            {
+                path: 'location/:id',
+                canActivate: [authGuard, adminGuard],
+                component: LocationDetailPage
+            },
+            {
+                path: 'location/:id/edit',
+                canActivate: [authGuard, locationExistsGuard, adminGuard],
+                component: LocationFormPage,
+            },
+            {
+                path: 'maintenance',
+                canActivate: [authGuard],
+                component: MaintenanceListPage,
+                resolve: { preload: maintenanceListResolver }
+            },
+            {
+                path: 'maintenance/new',
+                canActivate: [authGuard, adminGuard],
+                component: MaintenanceFormPage
+            },
+            {
+                path: 'maintenance/:id',
+                canActivate: [authGuard],
+                component: MaintenanceDetailPage
+            },
+            {
+                path: 'maintenance/:id/edit',
+                canActivate: [authGuard, maintenanceExistsGuard, adminGuard],
+                component: MaintenanceFormPage,
+            },
             { path: '', redirectTo: 'hub', pathMatch: 'full' },
         ],
-    },
-    {
-        path: 'location',
-        canActivate: [authGuard, adminGuard],
-        loadComponent: () => import(
-            './ui/features/location/pages/location-list/location-list.page').then(m =>
-                m.LocationListPage)
-    },
-    {
-        path: 'location/new',
-        canActivate: [authGuard, adminGuard],
-        loadComponent: () => import(
-            './ui/features/location/pages/location-form/location-form.page').then(m =>
-                m.LocationFormPage)
-    },
-    {
-        path: 'location/:id',
-        canActivate: [authGuard, adminGuard],
-        loadComponent: () => import(
-            './ui/features/location/pages/location-detail/location-detail.page').then(m =>
-                m.LocationDetailPage)
-    },
-    {
-        path: 'location/:id/edit',
-        canActivate: [authGuard, locationExistsGuard, adminGuard],
-        loadComponent: () => import('./ui/features/location/pages/location-form/location-form.page').then(m => m.LocationFormPage),
-    },
-    {
-        path: 'maintenance',
-        canActivate: [authGuard],
-        loadComponent: () => import(
-            './ui/features/maintenance/pages/maintenance-list/maintenance-list.page').then(m =>
-                m.MaintenanceListPage),
-        resolve: { preload: maintenanceListResolver }
-    },
-    {
-        path: 'maintenance/new',
-        canActivate: [authGuard, adminGuard],
-        loadComponent: () => import(
-            './ui/features/maintenance/pages/maintenance-form/maintenance-form.page').then(m =>
-                m.MaintenanceFormPage)
-    },
-    {
-        path: 'maintenance/:id',
-        canActivate: [authGuard],
-        loadComponent: () => import(
-            './ui/features/maintenance/pages/maintenance-detail/maintenance-detail.page').then(
-                m => m.MaintenanceDetailPage)
-    },
-    {
-        path: 'maintenance/:id/edit',
-        canActivate: [authGuard, maintenanceExistsGuard, adminGuard],
-        loadComponent: () => import('./ui/features/maintenance/pages/maintenance-form/maintenance-form.page').then(m => m.MaintenanceFormPage),
     },
     { path: '**', redirectTo: 'login' },
 ];

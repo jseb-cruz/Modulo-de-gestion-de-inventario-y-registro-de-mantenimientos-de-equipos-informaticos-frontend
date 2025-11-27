@@ -8,7 +8,7 @@ import { AuthService } from '../../auth/auth.service';
   standalone: true,
   imports: [CommonModule, RouterLink],
   templateUrl: './module-hub.page.html',
-  styleUrls: ['./module-hub.page.css']
+  styleUrls: []
 })
 export class ModuleHubPage {
   auth = inject(AuthService);

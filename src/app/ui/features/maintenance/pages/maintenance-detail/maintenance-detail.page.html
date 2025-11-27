@@ -1,27 +1,98 @@
-@if (loading() && !maintenance()) {
-<p>Cargando mantenimiento</p>
-}
-@if (maintenance()) {
-<section>
-    <h2>Detalles del mantenimiento</h2>
-    <ul>
-        <li><b>ID:</b> {{ maintenance()!.id }}</li>
-        <li><b>Equipo:</b> {{ maintenance()!.equipmentId }}</li>
-        <li><b>Tipo:</b> {{ maintenance()!.type }}</li>
-        <li><b>Técnico:</b> {{ maintenance()!.technician }}</li>
-        <li><b>Estado:</b> {{ maintenance()!.status }}</li>
-        <li><b>Programado:</b> {{ maintenance()!.scheduledAt }}</li>
-        <li><b>Realizado:</b> {{ maintenance()!.performedAt ? maintenance()!.performedAt : '—' }}</li>
-        <li><b>Costo:</b> {{ maintenance()!.cost != null ? maintenance()!.cost : '—' }}</li>
-        <li><b>Notas:</b> {{ maintenance()!.notes ? maintenance()!.notes : '—' }}</li>
-    </ul>
-    <div>
-        <button (click)="goEdit()">Editar</button>
-        <button (click)="delete()">Eliminar</button>
-        <a routerLink="/maintenance">Volver</a>
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-5xl mx-auto space-y-8">
+    @if (loading() && !maintenance()) {
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4 animate-pulse">
+      <div class="h-4 w-40 rounded bg-white/10"></div>
+      <div class="h-24 rounded-xl bg-white/10"></div>
+      <div class="flex gap-2">
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+      </div>
     </div>
+    }
+
+    @if (maintenance()) {
+    <div class="space-y-4">
+      <header class="grid md:grid-cols-[1fr_auto] items-start gap-4">
+        <div class="space-y-1">
+          <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+          <h1 class="text-3xl font-semibold text-white break-words">Mantenimiento {{ maintenance()!.id }}</h1>
+          <p class="text-sm text-slate-300">Detalle completo del servicio aplicado al equipo.</p>
+        </div>
+        <div class="flex flex-wrap items-center justify-start md:justify-end gap-3">
+          <a
+            routerLink="/maintenance"
+            class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+          >
+            Volver al listado
+          </a>
+          <button
+            type="button"
+            (click)="goEdit()"
+            class="rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:shadow-emerald-500/35"
+          >
+            Editar
+          </button>
+          <button
+            type="button"
+            (click)="delete()"
+            class="rounded-xl border border-red-500/40 bg-red-500/15 px-4 py-2 text-sm font-semibold text-red-100 transition hover:bg-red-500/25"
+          >
+            Eliminar
+          </button>
+        </div>
+      </header>
+
+      <div class="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-lg shadow-emerald-500/5">
+        <dl class="grid gap-4 md:grid-cols-2">
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Equipo</dt>
+            <dd class="text-lg font-semibold text-white">{{ maintenance()!.equipmentId }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Tipo</dt>
+            <dd class="text-lg font-semibold text-white">{{ maintenance()!.type }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Técnico</dt>
+            <dd class="text-lg font-semibold text-white">{{ maintenance()!.technician }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Estado</dt>
+            <dd class="text-lg font-semibold text-white">{{ maintenance()!.status }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Programado</dt>
+            <dd class="text-lg font-semibold text-white">{{ maintenance()!.scheduledAt | date:'yyyy-MM-dd HH:mm' }}</dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Ejecutado</dt>
+            <dd class="text-lg font-semibold text-white">
+              {{ maintenance()!.performedAt ? (maintenance()!.performedAt | date:'yyyy-MM-dd HH:mm') : 'Pendiente' }}
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Costo</dt>
+            <dd class="text-lg font-semibold text-white">
+              {{ maintenance()!.cost != null ? ('$' + maintenance()!.cost) : 'N/D' }}
+            </dd>
+          </div>
+          <div>
+            <dt class="text-xs uppercase tracking-[0.15em] text-slate-400">Notas</dt>
+            <dd class="text-lg font-semibold text-white">
+              {{ maintenance()!.notes ? maintenance()!.notes : 'Sin notas' }}
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+    }
+
+    @if (!loading() && !maintenance()) {
+    <div class="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+      No se encontró el mantenimiento.
+      <a routerLink="/maintenance" class="font-semibold text-emerald-200 hover:text-emerald-100 transition">Volver</a>
+    </div>
+    }
+  </div>
 </section>
-}
-@if (!loading() && !maintenance()) {
-<p>No se encontró el mantenimiento. <a routerLink="/maintenance">Volver</a></p>
-}

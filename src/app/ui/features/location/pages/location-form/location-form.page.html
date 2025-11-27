@@ -1,67 +1,155 @@
-<section class="container">
-  <h2>{{isEdit ? 'Editar Ubicacion': 'Registrar'}}</h2>
-  <form [formGroup]="form" (ngSubmit)="onSubmit()">
-    <div class="grid">
-      <label>
-        Codigo*
-        <input formControlName="code" />
-        @if(form.controls.code.invalid && form.controls.code.touched){
-        <span class="error">Requerido</span>
-        }
-      </label>
-      <label>
-        Nombre*
-        <input formControlName="name" />
-        @if(form.controls.name.invalid && form.controls.name.touched){
-        <span class="error">Requerido</span>
-        }
-      </label>
-      <label>
-        Tipo*
-        <select formControlName="type">
-          <option value="Office">Oficina</option>
-          <option value="Warehouse">Almacen</option>
-          <option value="DataCenter">Centro de datos</option>
-          <option value="Lab">Laboratorio</option>
-          <option value="Remote">Remoto</option>
-          <option value="Other">Otro</option>
-        </select>
-      </label>
-      <label>
-        Estado*
-        <select formControlName="status">
-          <option value="Active">Activo</option>
-          <option value="Inactive">Inactivo</option>
-          <option value="UnderMaintenance">En mantenimiento</option>
-          <option value="Deprecated">Deprecado</option>
-        </select>
-      </label>
-      <label>
-        Edificio
-        <input formControlName="building" />
-      </label>
-      <label>
-        Piso
-        <input formControlName="floor" />
-      </label>
-      <label>
-        Sala/Habitacion
-        <input formControlName="room" />
-      </label>
-      <label>
-        Direccion
-        <input formControlName="address" />
-      </label>
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-5xl mx-auto space-y-8">
+    <header class="flex flex-wrap items-center justify-between gap-4">
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+        <h1 class="text-3xl font-semibold leading-tight text-white">
+          {{isEdit ? 'Editar ubicación' : 'Nueva ubicación'}}
+        </h1>
+        <p class="text-sm text-slate-300">Registra sedes, almacenes o salas donde residen tus activos.</p>
+      </div>
+      <a
+        routerLink="/location"
+        class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+      >
+        Volver al listado
+      </a>
+    </header>
+
+    <div class="relative">
+      <div class="pointer-events-none absolute -inset-1 rounded-3xl bg-gradient-to-br from-amber-400/30 via-emerald-400/20 to-indigo-400/20 blur-2xl opacity-70"></div>
+      <div class="relative rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl space-y-6">
+        <form class="space-y-6" [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="grid gap-4 md:grid-cols-2">
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Código*
+              <input
+                formControlName="code"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="HQ-001"
+              >
+              @if(form.controls.code.invalid && form.controls.code.touched){
+              <span class="text-xs text-red-200">Requerido</span>
+              }
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Nombre*
+              <input
+                formControlName="name"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="Oficina Central"
+              >
+              @if(form.controls.name.invalid && form.controls.name.touched){
+              <span class="text-xs text-red-200">Requerido</span>
+              }
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Tipo*
+              <select
+                formControlName="type"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+              >
+                <option value="Office" class="bg-slate-900 text-slate-100">Oficina</option>
+                <option value="Warehouse" class="bg-slate-900 text-slate-100">Almacén</option>
+                <option value="DataCenter" class="bg-slate-900 text-slate-100">Centro de datos</option>
+                <option value="Lab" class="bg-slate-900 text-slate-100">Laboratorio</option>
+                <option value="Remote" class="bg-slate-900 text-slate-100">Remoto</option>
+                <option value="Other" class="bg-slate-900 text-slate-100">Otro</option>
+              </select>
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Estado*
+              <select
+                formControlName="status"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+              >
+                <option value="Active" class="bg-slate-900 text-slate-100">Activo</option>
+                <option value="Inactive" class="bg-slate-900 text-slate-100">Inactivo</option>
+                <option value="UnderMaintenance" class="bg-slate-900 text-slate-100">En mantenimiento</option>
+                <option value="Deprecated" class="bg-slate-900 text-slate-100">Deprecado</option>
+              </select>
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Edificio
+              <input
+                formControlName="building"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="Torre A"
+              >
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Piso
+              <input
+                formControlName="floor"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="5"
+              >
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100">
+              Sala/Habitación
+              <input
+                formControlName="room"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="Sala 501"
+              >
+            </label>
+
+            <label class="block space-y-2 text-sm font-medium text-slate-100 md:col-span-2">
+              Dirección
+              <input
+                formControlName="address"
+                class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none transition focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40"
+                placeholder="Av. Siempre Viva 123"
+              >
+            </label>
+          </div>
+
+          <div class="space-y-2 text-sm text-slate-300">
+            <p class="font-semibold text-slate-100">Metadatos (opcional)</p>
+            <p class="text-xs">Este formulario guarda la estructura principal; puedes adjuntar metadatos desde código.</p>
+          </div>
+
+          @if(error()){
+          <p class="rounded-xl border border-red-500/30 bg-red-500/10 px-3 py-2 text-sm text-red-100">
+            {{ error() }}
+          </p>
+          }
+
+          @if(success()){
+          <p class="rounded-xl border border-emerald-500/30 bg-emerald-500/10 px-3 py-2 text-sm text-emerald-100">
+            Guardado correctamente.
+          </p>
+          }
+
+          <div class="flex flex-wrap gap-3">
+            <button
+              type="submit"
+              [disabled]="form.invalid || submitting()"
+              class="flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-5 py-3 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:shadow-emerald-500/35 focus:outline-none focus:ring-2 focus:ring-emerald-400/50 focus:ring-offset-2 focus:ring-offset-slate-950 disabled:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {{ isEdit ? 'Guardar cambios' : 'Registrar ubicación' }}
+            </button>
+            <button
+              type="reset"
+              class="rounded-xl border border-white/10 bg-white/5 px-5 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+            >
+              Limpiar
+            </button>
+            <a
+              routerLink="/location"
+              class="inline-flex items-center rounded-xl border border-white/10 bg-white/0 px-5 py-3 text-sm font-semibold text-emerald-200 transition hover:bg-white/5"
+            >
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
     </div>
-    <div class="actions">
-      <button type="submit" [disabled]="form.invalid || submitting()">{{ isEdit ? 'Guardar Cambios' : 'Registrar' }}</button>
-      <a routerLink="/equipment">Cancelar</a>
-    </div>
-    @if(error()){
-    <p>{{ error() }}</p>
-    }
-    @if(success()){
-    <p>Guardado correctamente (simulado)</p>
-    }
-  </form>
+  </div>
 </section>

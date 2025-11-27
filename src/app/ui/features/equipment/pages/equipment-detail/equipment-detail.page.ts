@@ -2,11 +2,13 @@ import { afterNextRender, Component, inject, signal } from '@angular/core';
 import { EquipmentStore } from '../../state/equipment.store';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Equipment } from '../../../../../domain/models/equipment.model';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-equipment-detail',
-  imports: [RouterLink],
+  standalone: true,
+  imports: [CommonModule, RouterLink],
   templateUrl: './equipment-detail.page.html',
-  styleUrl: './equipment-detail.page.css'
+  styleUrls: []
 })
 export class EquipmentDetailPage {
   private store = inject(EquipmentStore);

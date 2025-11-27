@@ -11,7 +11,7 @@ import { StatusLabelPipe } from '../../../../shared/pipes/status-label-pipe';
     standalone: true,
     imports: [CommonModule, LocationTable, RouterLink, TypeLabelPipe, StatusLabelPipe],
     templateUrl: './location-list.page.html',
-    styleUrl: './location-list.page.css'
+    styleUrls: []
 })
 export class LocationListPage {
 
