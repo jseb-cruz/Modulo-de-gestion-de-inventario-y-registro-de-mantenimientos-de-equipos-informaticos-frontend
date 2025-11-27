@@ -1,7 +1,6 @@
 import { RenderMode, ServerRoute } from '@angular/ssr';
 
 const prerenderPaths = [
-  '',
   'login',
   'hub',
   'change-password',

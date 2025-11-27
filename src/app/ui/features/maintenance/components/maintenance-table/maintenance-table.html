@@ -1,23 +1,24 @@
-<table>
-    <thead>
-        <tr>
-            <th>Equipment</th>
-            <th>Technician</th>
-            <th>Type</th>
-            <th>Status</th>
-            <th>Detalles</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for(item of data; track item.id) {
-        <tr>
-            <td>{{ equipmentMap?.get(item.equipmentId) ?? item.equipmentId }}</td>
-            <td>{{ item.technician }}</td>
-            <td>{{ item.type | typeLabel:'maintenance' }}</td>
-            <td>{{ item.status | statusLabel:'maintenance' }}</td>
-            <td><a [routerLink]="['/maintenance', item.id]">Ver más</a></td>
-
-        </tr>
-        }
-    </tbody>
+<table class="w-full border-separate border-spacing-x-6 border-spacing-y-2 text-sm md:text-base">
+  <thead>
+    <tr>
+      <th class="th">Equipo</th>
+      <th class="th">Técnico</th>
+      <th class="th">Tipo</th>
+      <th class="th">Estado</th>
+      <th class="th text-right">Detalles</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for(item of data; track item.id) {
+    <tr>
+      <td class="td">{{ equipmentMap?.get(item.equipmentId) ?? item.equipmentId }}</td>
+      <td class="td">{{ item.technician }}</td>
+      <td class="td">{{ item.type | typeLabel:'maintenance' }}</td>
+      <td class="td">{{ item.status | statusLabel:'maintenance' }}</td>
+      <td class="td text-right">
+        <a class="link" [routerLink]="['/maintenance', item.id]">Ver más</a>
+      </td>
+    </tr>
+    }
+  </tbody>
 </table>

@@ -1,4 +1,5 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/80e82b82-a1ff-4f85-b109-8d39736fcd55/resourceGroups/TechInventory/providers/Microsoft.Web/sites/TechInventory",
-    "appService.deploySubpath": "dist\\intro-angular"
+    "appService.deploySubpath": "dist\\intro-angular",
+    "files.associations": { "*.css": "postcss" }
 }

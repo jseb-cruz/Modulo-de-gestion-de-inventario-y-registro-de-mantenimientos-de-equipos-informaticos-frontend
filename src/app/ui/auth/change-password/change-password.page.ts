@@ -1,16 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { UserStore } from '../../features/user/state/user.store';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-change-password',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, RouterLink],
   templateUrl: './change-password.page.html',
-  styleUrls: ['./change-password.page.css'],
+  styleUrls: [],
 })
 export class ChangePasswordPage {
   private fb = inject(FormBuilder);

@@ -9,10 +9,10 @@ import { UserTable } from '../../components/user-table/user-table';
   standalone: true,
   imports: [CommonModule, UserTable, RouterLink],
   templateUrl: './user-list.page.html',
-  styleUrls: ['./user-list.page.css']
+  styleUrls: []
 })
 export class UserListPage {
-  private store = inject(UserStore);
+  store = inject(UserStore);
   private router = inject(Router);
   loading = this.store.loading;
   error = this.store.error;

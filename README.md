@@ -50,12 +50,8 @@ package.json                  # Scripts y dependencias
 3) Abrir `http://localhost:4200`. Las rutas protegidas requieren iniciar sesion desde `/login`.
 4) Pruebas unitarias: `npm test` (Karma + Jasmine).
 
-## 7. Pasos para despliegue
-- Build de produccion SPA: `npm run build` -> `dist/intro-angular/browser/` para hosting estatico. Ajusta `src/enviroments/environment.production.ts` con el `apiUrl` real antes de construir.
-- Despliegue SSR/Node: `npm run build` y luego `npm run serve:ssr:intro-angular` (sirve `dist/intro-angular/server/server.mjs` usando Express y los assets de `dist/intro-angular/browser`). Configura el reverse proxy del servidor para que `/api/v1` apunte a tu backend.
-- Entorno: exporta variables propias del host (p. ej. `NODE_ENV=production`) y habilita HTTPS/headers en tu servidor de aplicaciones o en Azure/App Service.
 
-## 8. Endpoints o peticiones disponibles
+## 7. Endpoints o peticiones disponibles
 Base API: `apiUrl` (por defecto `/api/v1`, proxificado a `http://localhost:3000`). Respuestas suelen venir como `{ ok?: boolean, data?: ... }` o el objeto directo.
 - `POST /auth/login` -> recibe `email`, `password`; retorna `{ token, user }`.
 - `GET /equipment` | `GET /equipment/:id` | `POST /equipment` | `PATCH /equipment/:id` | `DELETE /equipment/:id`.
@@ -63,7 +59,7 @@ Base API: `apiUrl` (por defecto `/api/v1`, proxificado a `http://localhost:3000`
 - `GET /maintenance` | `GET /maintenance/:id` | `POST /maintenance` | `PATCH /maintenance/:id` | `DELETE /maintenance/:id`.
 - `GET /users` | `GET /users/:id` | `POST /users` (incluye `password`) | `PATCH /users/:id` (actualiza datos y contrasena) | `DELETE /users/:id`.
 
-## 9. Arquitectura del proyecto (UML)
+## 8. Arquitectura del proyecto (UML)
 ```mermaid
 classDiagram
   class UI {

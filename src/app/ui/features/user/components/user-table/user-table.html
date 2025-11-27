@@ -1,26 +1,26 @@
-<table>
+<table class="w-full border-separate border-spacing-x-6 border-spacing-y-2 text-sm md:text-base">
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Status</th>
+      <th class="th">Nombre</th>
+      <th class="th">Email</th>
+      <th class="th">Rol</th>
+      <th class="th">Estado</th>
       @if(showActions){
-      <th>Acciones</th>
+      <th class="th text-right">Acciones</th>
       }
     </tr>
   </thead>
   <tbody>
     @for(user of data; track user.id) {
     <tr>
-      <td>{{ user.name }}</td>
-      <td>{{ user.email }}</td>
-      <td>{{ user.role }}</td>
-      <td>{{ user.status }}</td>
+      <td class="td">{{ user.name }}</td>
+      <td class="td">{{ user.email }}</td>
+      <td class="td">{{ user.role }}</td>
+      <td class="td">{{ user.status }}</td>
       @if(showActions){
-      <td>
-        <button type="button" (click)="onEdit?.(user)">Editar</button>
-        <button type="button" (click)="onDelete?.(user)">Eliminar</button>
+      <td class="td text-right space-x-2">
+        <button type="button" (click)="onEdit?.(user)" class="btn secondary">Editar</button>
+        <button type="button" (click)="onDelete?.(user)" class="btn danger">Eliminar</button>
       </td>
       }
     </tr>

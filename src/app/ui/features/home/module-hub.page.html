@@ -1,15 +1,66 @@
-<section class="hub">
-  <header class="hub-header">
-    <h2>Select a module</h2>
-    <button type="button" (click)="logout()">Cerrar sesión</button>
-  </header>
-  <div class="grid">
-    <a routerLink="/equipment">Equipos</a>
-    <a routerLink="/maintenance">Mantenimientos</a>
-    <a routerLink="/change-password">Cambiar contraseña</a>
-    @if(auth.isAdmin()) {
-    <a routerLink="/location">Ubicaciones</a>
-    <a routerLink="/users">Usuarios</a>
-    }
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-6xl mx-auto space-y-10">
+    <header class="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+        <h2 class="text-3xl font-semibold leading-tight">Selecciona un módulo</h2>
+      </div>
+      <button
+        type="button"
+        (click)="logout()"
+        class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+      >
+        Cerrar sesión
+      </button>
+    </header>
+
+    <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <a routerLink="/equipment" class="card-link">
+        <div class="card-icon bg-emerald-400/15 text-emerald-200">EQ</div>
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-emerald-200">Inventario</p>
+          <h3 class="text-xl font-semibold text-white">Equipos</h3>
+          <p class="text-sm text-slate-300">Gestiona activos y estado</p>
+        </div>
+      </a>
+
+      <a routerLink="/maintenance" class="card-link">
+        <div class="card-icon bg-cyan-400/15 text-cyan-200">MT</div>
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-cyan-200">Operación</p>
+          <h3 class="text-xl font-semibold text-white">Mantenimientos</h3>
+          <p class="text-sm text-slate-300">Programados y correctivos</p>
+        </div>
+      </a>
+
+      <a routerLink="/change-password" class="card-link">
+        <div class="card-icon bg-indigo-400/15 text-indigo-200">PW</div>
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-indigo-200">Seguridad</p>
+          <h3 class="text-xl font-semibold text-white">Cambiar contraseña</h3>
+          <p class="text-sm text-slate-300">Actualiza tu acceso</p>
+        </div>
+      </a>
+
+      @if(auth.isAdmin()) {
+      <a routerLink="/location" class="card-link">
+        <div class="card-icon bg-amber-400/15 text-amber-200">UB</div>
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-amber-200">Ubicación</p>
+          <h3 class="text-xl font-semibold text-white">Ubicaciones</h3>
+          <p class="text-sm text-slate-300">Sedes y espacios</p>
+        </div>
+      </a>
+
+      <a routerLink="/users" class="card-link">
+        <div class="card-icon bg-rose-400/15 text-rose-200">US</div>
+        <div>
+          <p class="text-xs uppercase tracking-[0.15em] text-rose-200">Control</p>
+          <h3 class="text-xl font-semibold text-white">Usuarios</h3>
+          <p class="text-sm text-slate-300">Roles y permisos</p>
+        </div>
+      </a>
+      }
+    </div>
   </div>
 </section>

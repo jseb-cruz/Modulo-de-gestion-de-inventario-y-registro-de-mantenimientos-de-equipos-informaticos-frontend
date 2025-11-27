@@ -1,12 +1,12 @@
 import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
-import { provideServerRendering, withRoutes } from '@angular/ssr';
 import { appConfig } from './app.config';
-import { serverRoutes } from './app.routes.server';
 
+/**
+ * Keep server providers registered only once to avoid duplicate state serialization warnings.
+ * The SSR engine already registers the necessary server providers.
+ */
 const serverConfig: ApplicationConfig = {
-  providers: [
-    provideServerRendering(withRoutes(serverRoutes))
-  ]
+  providers: []
 };
 
 export const config = mergeApplicationConfig(appConfig, serverConfig);

@@ -8,6 +8,9 @@ import { Shell } from './ui/layout/shell/shell';
 import { locationExistsGuard } from './ui/features/location/guards/location-exists-guard';
 import { adminGuard } from './ui/auth/admin.guard';
 import { authGuard } from './ui/auth/auth.guard';
+import { EquipmentListPage } from './ui/features/equipment/pages/equipment-list/equipment-list.page';
+import { ChangePasswordPage } from './ui/auth/change-password/change-password.page';
+import { ModuleHubPage } from './ui/features/home/module-hub.page';
 export const routes: Routes = [
     {
         path: '',
@@ -24,11 +27,13 @@ export const routes: Routes = [
         canActivateChild: [authGuard],
         children: [
             {
+                path: 'hub',
+                component: ModuleHubPage,
+            },
+            {
                 path: 'equipment',
                 canActivate: [authGuard],
-                loadComponent: () => import(
-                    './ui/features/equipment/pages/equipment-list/equipment-list.page').then(m =>
-                        m.EquipmentListPage),
+                component: EquipmentListPage,
                 resolve: { preload: equipmentListResolver }
             },
             {
@@ -65,18 +70,13 @@ export const routes: Routes = [
                 canActivate: [authGuard, adminGuard],
                 loadComponent: () => import('./ui/features/user/pages/user-form/user-form.page').then(m => m.UserFormPage),
             },
+            {
+                path: 'change-password',
+                canActivate: [authGuard],
+                component: ChangePasswordPage,
+            },
             { path: '', redirectTo: 'hub', pathMatch: 'full' },
         ],
-    },
-    {
-        path: 'hub',
-        canActivate: [authGuard],
-        loadComponent: () => import('./ui/features/home/module-hub.page').then(m => m.ModuleHubPage),
-    },
-    {
-        path: 'change-password',
-        canActivate: [authGuard],
-        loadComponent: () => import('./ui/auth/change-password/change-password.page').then(m => m.ChangePasswordPage),
     },
     {
         path: 'location',

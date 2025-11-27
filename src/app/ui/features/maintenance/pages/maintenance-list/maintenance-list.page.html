@@ -1,51 +1,158 @@
-<section class="container">
-  <header class="toolbar">
-    <h2>Maintenance Inventory</h2>
-    @if(auth.isAdmin()) {
-    <a routerLink="/maintenance/new">+ Nuevo</a>
+<section class="min-h-screen bg-slate-950 text-slate-50 px-6 py-10">
+  <div class="max-w-7xl mx-auto space-y-8">
+    <header class="flex flex-wrap items-center justify-between gap-4">
+      <div class="space-y-1">
+        <p class="text-xs uppercase tracking-[0.2em] text-emerald-200">Tech Inventory</p>
+        <h1 class="text-3xl font-semibold leading-tight text-white">Mantenimientos</h1>
+        <p class="text-sm text-slate-300">Agenda, ejecuta y controla los servicios aplicados a tus equipos.</p>
+      </div>
+      <div class="flex flex-wrap items-center gap-3">
+        <a
+          routerLink="/hub"
+          class="rounded-xl border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10 transition"
+        >
+          Volver al hub
+        </a>
+        <button
+          type="button"
+          (click)="reload()"
+          class="rounded-xl border border-emerald-400/30 bg-emerald-400/10 px-4 py-2 text-sm font-semibold text-emerald-100 hover:bg-emerald-400/20 transition"
+        >
+          Actualizar
+        </button>
+        @if(auth.isAdmin()) {
+        <a
+          routerLink="/maintenance/new"
+          class="rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-lg shadow-emerald-500/25 transition hover:-translate-y-0.5 hover:shadow-emerald-500/35"
+        >
+          + Nuevo mantenimiento
+        </a>
+        }
+      </div>
+    </header>
+
+    <div class="grid gap-4 sm:grid-cols-3">
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+        <p class="text-xs uppercase tracking-[0.15em] text-emerald-200">Total registros</p>
+        <p class="text-3xl font-semibold text-white">{{ total() }}</p>
+        <p class="text-xs text-slate-300">Incluye todos los estados</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+        <p class="text-xs uppercase tracking-[0.15em] text-cyan-200">Página</p>
+        <p class="text-3xl font-semibold text-white">{{ page() }} / {{ totalPages() }}</p>
+        <p class="text-xs text-slate-300">Tamaño: {{ pageSize() }} ítems</p>
+      </div>
+      <div class="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur">
+        <p class="text-xs uppercase tracking-[0.15em] text-indigo-200">Mostrando</p>
+        <p class="text-3xl font-semibold text-white">{{ paged().length }}</p>
+        <p class="text-xs text-slate-300">Resultados en esta página</p>
+      </div>
+    </div>
+
+    <div class="rounded-2xl border border-white/10 bg-gradient-to-br from-cyan-500/10 via-slate-900 to-slate-950 p-5 backdrop-blur space-y-4">
+      <div class="grid gap-3 md:grid-cols-2 lg:grid-cols-4">
+        <label class="block">
+          <span class="text-xs uppercase tracking-[0.15em] text-slate-300">Buscar</span>
+          <div class="mt-2 relative">
+            <input
+              type="text"
+              (input)="onQuery($event)"
+              placeholder="Equipo, técnico o nota"
+              class="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder:text-slate-400 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+            >
+            <span class="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 text-sm">⌕</span>
+          </div>
+        </label>
+
+        <label class="block">
+          <span class="text-xs uppercase tracking-[0.15em] text-slate-300">Tipo</span>
+          <select
+            id="selectType"
+            (change)="onType($event)"
+            class="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+          >
+            <option value="All" class="bg-slate-900 text-slate-100">Todos</option>
+            @for(type of types; track type) {
+            <option [value]="type" class="bg-slate-900 text-slate-100">{{ type | typeLabel:'maintenance' }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="block">
+          <span class="text-xs uppercase tracking-[0.15em] text-slate-300">Estado</span>
+          <select
+            id="selectStatus"
+            (change)="onStatus($event)"
+            class="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+          >
+            <option value="All" class="bg-slate-900 text-slate-100">Todos</option>
+            @for(status of statuses; track status) {
+            <option [value]="status" class="bg-slate-900 text-slate-100">{{ status | statusLabel:'maintenance' }}</option>
+            }
+          </select>
+        </label>
+
+        <label class="block">
+          <span class="text-xs uppercase tracking-[0.15em] text-slate-300">Tamaño página</span>
+          <select
+            id="selectPageSize"
+            (change)="onPageSize($event)"
+            class="mt-2 w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/40 outline-none"
+          >
+            <option [value]="5" class="bg-slate-900 text-slate-100">5</option>
+            <option [value]="10" selected class="bg-slate-900 text-slate-100">10</option>
+            <option [value]="20" class="bg-slate-900 text-slate-100">20</option>
+            <option [value]="50" class="bg-slate-900 text-slate-100">50</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    @if (loading()) {
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-6 space-y-4 animate-pulse">
+      <div class="h-4 w-40 rounded bg-white/10"></div>
+      <div class="h-32 rounded-xl bg-white/10"></div>
+      <div class="flex gap-2">
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+        <div class="h-8 w-24 rounded bg-white/10"></div>
+      </div>
+    </div>
     }
-    <button type="button" routerLink="/hub">Volver al hub</button>
-  </header>
-  <div class="filters">
-    <input placeholder="Buscar por Asset/Serial/Modelo" (input)="onQuery($event)" type="text">
-    <select name="selectType" id="selectType" (change)="onType($event)">
-      <option value="All">Tipo (Todos)</option>
-      @for(type of types; track type) {
-      <option [value]="type">{{ type | typeLabel }}</option>
-      }
-    </select>
-    <select name="selectStatus" id="selectStatus" (change)="onStatus($event)">
-      <option value="All">Estado (Todos)</option>
-      @for(status of statuses; track status) {
-      <option [value]="status">{{ status | statusLabel }}</option>
-      }
-    </select>
-    <label>
-      Tamaño página
-      <select name="selectPageSize" id="selectPageSize" (change)="onPageSize($event)">
-        <option [value]="1">1</option>
-        <option [value]="5">5</option>
-        <option [value]="10" selected>10</option>
-        <option [value]="20">20</option>
-      </select>
-    </label>
-  </div>
-  <button (click)="reload()">Reload</button>
-  @if (loading()) {
-  <p>Loading....</p>
-  }
+
     @if (error()) {
-    <p>{{ error() }}</p>
+    <div class="rounded-xl border border-red-500/40 bg-red-500/10 px-4 py-3 text-sm text-red-100">
+      {{ error() }}
+    </div>
     }
+
     @if(!loading() && !error()) {
-    <app-maintenance-table [data]="paged()" [equipmentMap]="equipmentMap()" />
+    <div class="rounded-2xl border border-white/10 bg-white/5 p-4 shadow-lg shadow-emerald-500/5">
+      <app-maintenance-table [data]="paged()" [equipmentMap]="equipmentMap()" />
+    </div>
     }
-  @if(total() > pageSize()) {
-  <div class="pagination">
-    <button (click)="previous()" [disabled]="page() === 1">Anterior</button>
-    <span>Página {{ page() }} de {{ totalPages() }}</span>
-    <button (click)="next()" [disabled]="page() >=
-totalPages()">Siguiente</button>
+
+    @if(total() > pageSize()) {
+    <div class="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+      <div class="text-sm text-slate-300">
+        Página <span class="font-semibold text-white">{{ page() }}</span> de <span class="font-semibold text-white">{{ totalPages() }}</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button
+          (click)="previous()"
+          [disabled]="page() === 1"
+          class="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold transition hover:border-emerald-400/40 disabled:opacity-50 disabled:hover:border-white/10"
+        >
+          Anterior
+        </button>
+        <button
+          (click)="next()"
+          [disabled]="page() >= totalPages()"
+          class="rounded-lg border border-white/10 px-3 py-2 text-sm font-semibold transition hover:border-emerald-400/40 disabled:opacity-50 disabled:hover:border-white/10"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+    }
   </div>
-  }
 </section>
